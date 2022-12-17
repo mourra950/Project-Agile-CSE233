@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from .models import User
-
+from .models import Committee_des
 # Create your views here.
 def login_view(request):
     if request.method == "POST":
@@ -60,4 +60,6 @@ def register(request):
         return render(request, "network/register.html")
 
 def decription(request):
-    return render(request, "Committee/Service.html")
+    return render(request, "Committee/Service.html",{
+        "Committee":Committee_des.objects.all()
+    })
