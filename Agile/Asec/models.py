@@ -12,5 +12,6 @@ class Committee_des(models.Model):
     Description=models.CharField(max_length=255)
     def __str__(self):
         return f"{self.id}: {self.Description}"
+   
 class Tracker(models.Model):
     pass
