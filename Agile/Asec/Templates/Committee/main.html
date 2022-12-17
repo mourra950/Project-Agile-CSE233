@@ -2,32 +2,29 @@
 
 {% block body %}
 <head>
-    <title>Screen Size</title>
     <style>
-        #container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        #container > div {
-            background-color: rgb(126, 118, 184);
-            font-size: 20px;
-            color:black;
-            margin: 20px;
-            padding: 20px;
-            width: 200px;
-        }
-    </style>
+        .btn {
+        display: inline-block;
+        padding: 10px 25px;
+        margin: 4px 2px;
+        background-color: #1c87c9;
+        border: 3px solid #095484;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 20px;
+        color: #fff;
+        cursor: pointer;
+      }
+      </style>
 </head>
 <body>
-    <div id="container">
-        
-        <div><a href="https://www.google.com/"></a>HR Committe</div>
-        <div><a href="https://www.google.com/"></a>Service Committe</div>
-        <div><a href="https://www.google.com/"></a>Case Study Committe</div>
-        <div><a href="https://www.google.com/"></a>Charity Committe</div>
-        
-    </div>
+        <h1>Committees</h1>
+        <a href="{% url 'Committee' %}" class="button", width="15px",height="70px",font-family="bold",padding="10px" > Service Committe</a>
+        <a href="{% url 'HR_form' %}" class="button">  HR Committe</a >
+        <class="button",background-color: violet>Charity Committe
+        <class="button">Case Study Committe
+       
 </body>
     
 {% endblock %}

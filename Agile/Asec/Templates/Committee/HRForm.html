@@ -4,6 +4,17 @@
 <head>
     <title> Activity sheet</title>
 </head>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'> 
+<style> 
+body, form, span, select, input, textarea 
+{ 
+    font-family: 'Open Sans', sans-serif; font-size: 14px; }
+ html { 
+    margin: 0; padding: 0; width: 100%; } 
+ form, body { 
+    margin-left: auto; margin-right: auto; max-width: 1000px; }
+     span { display: block; margin: 5px 0; overflow: auto; padding: 0 1%; width: 98%; 
+     } </style>
     <h1>Activity sheet</h1>
     <form action="{% url 'HR_form' %}" method="post">
         {% csrf_token %}
