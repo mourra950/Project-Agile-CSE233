@@ -1,0 +1,14 @@
+{% extends "Committee/layout.html" %}
+
+{% block body %}
+<head>
+    <title> Activity sheet</title>
+</head>
+    <h1>Activity sheet</h1>
+    <form action="{% url 'HR_form' %}" method="post">
+        {% csrf_token %}
+     {{form}}
+        <input type="submit">   
+    </form>
+
+{% endblock %}

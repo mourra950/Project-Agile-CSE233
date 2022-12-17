@@ -1,0 +1,33 @@
+{% extends "Committee/layout.html" %}
+
+{% block body %}
+<head>
+    <title>Screen Size</title>
+    <style>
+        #container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #container > div {
+            background-color: rgb(126, 118, 184);
+            font-size: 20px;
+            color:black;
+            margin: 20px;
+            padding: 20px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        
+        <div><a href="https://www.google.com/"></a>HR Committe</div>
+        <div><a href="https://www.google.com/"></a>Service Committe</div>
+        <div><a href="https://www.google.com/"></a>Case Study Committe</div>
+        <div><a href="https://www.google.com/"></a>Charity Committe</div>
+        
+    </div>
+</body>
+    
+{% endblock %}
