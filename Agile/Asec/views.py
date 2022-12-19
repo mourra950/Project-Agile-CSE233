@@ -10,6 +10,7 @@ from .models import Committee_des
 # Create your views here.
 class NewTaskForm(forms.Form):
     name = forms.CharField(label="full name")
+    
     Id =forms.IntegerField(label="Id ")
     task = forms.CharField(label="Assigned Task ")
     Attendance = forms.CharField(label="Attendence ")
@@ -82,6 +83,7 @@ def create_form(request):
             task = form.cleaned_data["task"]
             Attendance=form.cleaned_data["Attendance"]
             tasks.append("Name"+":"+name+","+"Task" +":"+task+","+"attendance"+":"+Attendance)
+            print("\n")
             return HttpResponseRedirect(reverse("submit_form"))
         else:
             # If the form is invalid, re-render the page with existing information.
