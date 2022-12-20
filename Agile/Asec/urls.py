@@ -10,5 +10,6 @@ urlpatterns=[
     path("main", views.committe_main, name="main"),
     path("HR_form", views.create_form, name="HR_form"),
     path("submit_form", views.Show_form, name="submit_form"),
-    
+    path("announcements", views.show_announcements, name="show_announcements"),
+
 ]

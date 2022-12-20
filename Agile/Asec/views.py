@@ -93,6 +93,11 @@ def create_form(request):
     return render(request,"Committee/HRForm.html" ,
    
                { "form" :NewTaskForm()})
+def show_announcements(request):
+    if request.method == 'GET':
+        return render(request, "Announcements/announcements.html")
+
+
 tasks=[ ]
 def Show_form(request):
    
