@@ -1,0 +1,15 @@
+{% extends "Committee/layout.html" %}
+{% block body %}
+<h1>Add member</h1>
+<form action="addrecord/" method="post">
+{% csrf_token %}
+First Name:<br>
+<input name="username">
+<br><br>
+Last Name:<br>
+<input name="email">
+<br><br>
+
+<input type="submit" value="Submit">
+</form>
+{% endblock %}

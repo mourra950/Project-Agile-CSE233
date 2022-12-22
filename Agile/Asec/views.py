@@ -106,13 +106,19 @@ def Show_form(request):
     return render(request, "Committee/Show_submission.html", {
         "tasks": tasks
     })
+def index(request):
+  mymembers = User.objects.all().values()
+  context = {
+    'mymembers': mymembers,
+  }
+  return HttpResponse(render(context,request))
 def list_members(request):
     users = User.objects.all().values()
     return render(request,"Committee/List_of_members.html",{"users": users})
 def addrecord(request):
   x = request.POST['username']
   y = request.POST['email']
-  member = User(username=x, email=y)
+  member = User(username=x,email=y)
   member.save()
   return HttpResponseRedirect(reverse('index'))
 def add_member(request):
@@ -132,3 +138,6 @@ def update(request):
     'mymember': mymember,
   }
   return HttpResponse(render(context, request))
+def add(request):
+    return HttpResponse(render('Committee/Add_member.html',request))
+    
