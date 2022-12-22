@@ -10,6 +10,7 @@
 			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 			crossorigin="anonymous"
 		/>
+		<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 	</head>
 
 	<body>
@@ -60,16 +61,15 @@
 
         {% endblock %}
 		<!-- Footer Section -->
-		<div
+		<footer
 			class="container-fluid text-light"
-			style="height: 200px; background-color: rgb(172, 0, 0)"
+			style="height: 300px; background-color: rgb(172, 0, 0)"
 		>
 			<div class="row justify-content-around">
-				<div class="col-sm-5 mt-2">
-					<img class="logo-picture" src="icons/logo.jpg" alt="" />
+				<div class="col-sm-5 mt-2 text-center">
+					<img class="logo-picture" src="{% static 'icons/logo.jpg' %}" alt="" height="100px"/>
 					<div class="container">
-						<h5>About us</h5>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						What We Give Today is What We Live Tomorrow
 					</div>
 				</div>
 				<div class="col-sm-5 mt-4">
@@ -91,7 +91,42 @@
 					</div>
 				</div>
 			</div>
-		</div>
+
+			<!-- Social Media -->
+			<div class="mb-4 text-center mt-5">
+				<!-- Facebook -->
+				<a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+				><i class="fab fa-facebook-f"></i
+				></a>
+			
+				<!-- Twitter -->
+				<a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+					><i class="fab fa-twitter"></i
+				></a>
+			
+				<!-- Google -->
+				<a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+					><i class="fab fa-google"></i
+				></a>
+			
+				<!-- Instagram -->
+				<a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+					><i class="fab fa-instagram"></i
+				></a>
+			
+				<!-- Linkedin -->
+				<a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+					><i class="fab fa-linkedin-in"></i
+				></a>
+			
+				<!-- Github -->
+				<a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+					><i class="fab fa-github"></i
+				></a>
+		  
+			</div>
+			  <!-- Social media -->
+		</footer>
 
 		<script
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
