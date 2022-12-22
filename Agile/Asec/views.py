@@ -6,13 +6,14 @@ from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from django import forms
 from .models import User
+from django import forms
 from .models import Committee_des
 from .models import User
 from django.template import loader
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 class NewTaskForm(forms.Form):
     name = forms.CharField(label="full name")
-    
     Id =forms.IntegerField(label="Id ")
     task = forms.CharField(label="Assigned Task ")
     Attendance = forms.CharField(label="Attendence ")
@@ -43,6 +44,8 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("index"))
 
 
+ 
+
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -52,7 +55,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "network/register.html", {
+            return render(request, "Authentication/register.html", {
                 "message": "Passwords must match."
             })
 
@@ -61,13 +64,13 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
-            return render(request, "network/register.html", {
+            return render(request, "Authentication/register.html", {
                 "message": "Username already taken."
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "network/register.html")
+        return render(request, "Authentication/register.html")
 
 def decription(request):
     return render(request, "Committee/Service.html",{
@@ -183,3 +186,71 @@ def add_member(request):
     output += x["username"]
     output += x["email"]
   return HttpResponse(output)
+class UserForm(UserCreationForm):
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'type': 'username',
+            'placeholder':('Username')
+        }
+    ))
+    first_name = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'type': 'first_name',
+            'placeholder':('First Name')
+        }
+    )) 
+    last_name = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'type':'last_name',
+            'placeholder':('Last Name')
+        }
+    ))
+    email = forms.EmailField(widget=forms.TextInput(
+        attrs={
+            'type':'email',
+            'placeholder':('Email')
+        }
+    ))
+    password1 = forms.CharField(max_length=16,widget=forms.PasswordInput(
+        attrs={
+            # 'class':'form-control',
+            'placeholder':'Password'
+        }
+    ))
+    password2 = forms.CharField(max_length=16,widget=forms.PasswordInput(
+        attrs={
+            # 'class':'form-control',
+            'placeholder':'Repeat Password'
+        }
+    ))
+    group_choices = (
+        ('M','Manager'),
+        ('U','User'),
+        ('C','Customer'),   
+    )
+    groups = forms.ChoiceField(choices=group_choices)
+
+    class Meta:
+        model = User
+        fields = ['username','email','first_name','last_name','password1','password2','groups']
+def create_register_form(request):
+    if request.method == "POST":
+
+        form = UserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            email= form.cleaned_data["email"]
+            first_name= form.cleaned_data["first_name"]
+            last_name=form.cleaned_data["last_name"]
+            password1=form.cleaned_data["password1"]
+            password2=form.cleaned_data["password2"]
+            groups=form.cleaned_data["groups"]
+            return HttpResponseRedirect(reverse("submit_form"))
+        else:
+            # If the form is invalid, re-render the page with existing information.
+            return render(request, "Authentication/register.html", {
+                "form": form
+            })
+    return render(request,"Authentication/register.html" ,
+   
+               { "form" :UserForm()})

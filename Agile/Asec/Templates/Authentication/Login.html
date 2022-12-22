@@ -5,14 +5,15 @@
 
     <form>  
         <div class="container">   
-            <label>Username : </label>   
-            <input type="text" placeholder="Enter Username" name="username" required>  
-            <label>Password : </label>   
-            <input type="password" placeholder="Enter Password" name="password" required>  
-            <button type="submit">Login</button>   
+            <ul><label>Username : </label>   
+            <input type="text" placeholder="Enter Username" name="username" required></ul>  
+            <ul><label>Password : </label>   
+            <input type="password" placeholder="Enter Password" name="password" required> </ul> 
+            <ul><button type="submit">Login</button></ul> 
             <input type="checkbox" > Remember me   
-            <button type="button" class="cancelbtn"> Cancel</button>   
-            Forgot <a href="#"> password? </a>   
+            <button type="button" class="cancelbtn"> Cancel</button>
+            <ul>Forgot <a href="#"> password? </a></ul>
+            <ul><a href="{% url 'register' %}"button type="submit">Sign up</button></ul>    
         </div>   
     </form>     
 </body>   
