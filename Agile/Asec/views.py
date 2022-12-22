@@ -71,8 +71,38 @@ def register(request):
 
 def decription(request):
     return render(request, "Committee/Service.html",{
-        "Committee":Committee_des.objects.all()
+        "Committee":Committee_des.objects.filter(id=1)
     })
+
+def HR_decription(request):
+    return render(request, "Committee/HR_committee.html",{
+        "HR_Committee":Committee_des.objects.filter(id=3)
+    })
+
+
+def LoginView(request):
+    if request.method == "POST":
+
+        # Attempt to sign user in
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+
+        # Check if authentication successful
+        if user is not None:
+
+            login(request, user)
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "Authentication/Login.html", {
+                "message": "Invalid username and/or password."
+            })
+    else:
+        return render(request, "Authentication/Login.html")
+
+
+
+
 def committe_main(request):
     return render(request, "Committee/main.html")
 def create_form(request):
