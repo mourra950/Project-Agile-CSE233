@@ -12,9 +12,10 @@ urlpatterns=[
     path("submit_form", views.Show_form, name="submit_form"),
     path("announcements", views.show_announcements, name="show_announcements"),
     path("Members", views.add_member, name="Members"),
-    path("add", views.add, name="add"),
+    path("add/", views.add, name="add"),
     path('add/addrecord/', views.addrecord, name='addrecord'),
     path("list",views.list_members,name="list"),
     path('delete/<int:id>', views.delete, name='delete'),
     path('update/<int:id>', views.update, name='update'),
+    path('update/updaterecord/<int:id>', views.updaterecord, name='updaterecord'),
 ]

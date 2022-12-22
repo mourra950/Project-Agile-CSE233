@@ -5,10 +5,10 @@
 
 <form action="updaterecord/{{ mymember.id }}" method="post">
 {% csrf_token %}
-First Name:<br>
+Username:<br>
 <input name="username" value="{{ mymember.username }}">
 <br><br>
-Last Name:<br>
+Email:<br>
 <input name="email" value="{{ mymember.email }}">
 <br><br>
 <input type="submit" value="Submit">
