@@ -102,10 +102,6 @@ def LoginView(request):
             })
     else:
         return render(request, "Authentication/Login.html")
-
-
-
-
 def committe_main(request):
     return render(request, "Committee/main.html")
 def create_form(request):
@@ -131,11 +127,8 @@ def create_form(request):
 def show_announcements(request):
     if request.method == 'GET':
         return render(request, "Announcements/announcements.html")
-
-
 tasks=[ ]
 def Show_form(request):
-   
     return render(request, "Committee/Show_submission.html", {
         "tasks": tasks
     })
@@ -245,7 +238,7 @@ def create_register_form(request):
             password1=form.cleaned_data["password1"]
             password2=form.cleaned_data["password2"]
             groups=form.cleaned_data["groups"]
-            return HttpResponseRedirect(reverse("submit_form"))
+            return HttpResponseRedirect(reverse("login"))
         else:
             # If the form is invalid, re-render the page with existing information.
             return render(request, "Authentication/register.html", {
