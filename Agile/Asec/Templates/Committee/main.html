@@ -1,9 +1,9 @@
-{% extends "Committee/layout.html" %}
-{% load static %}
-{% block body %}
+{% extends "General/layout.html" %} 
+{% load static%}
+{% block content %}
 <head>
     <style>
-        .btn {
+        /* .btn {
         display: inline-block;
         padding: 10px 25px;
         margin: 4px 2px;
@@ -15,61 +15,46 @@
         font-size: 20px;
         color: #fff;
         cursor: pointer;
-      }
+      } */
       </style>
 </head>
 <body>
-        <h1>Committees</h1>
-        
-        <ul><a href="{% url 'Committee' %}" class="button", width="15px",height="70px",font-family="bold",padding="10px" > Service Committe</a></ul>
-        <ul><a href="{% url 'HR_form' %}" class="button">  HR Committe</a ></ul>
-        <ul><class="button",background-color: violet>Charity Committe</ul>
-        <ul><class="button">Case Study Committe</ul>
-       
-       
-</body>
-{% endblock %}
-{% block content %}
-
-<!-- Footer Section -->
-<div
-class="container-fluid text-light"
-style="height: 200px; background-color: rgb(172, 0, 0)"
+    <div
+	class="container h-auto my-5 p-3 text-light text-center"
+	style="background-color: rgb(172, 0, 0); border-radius: 20px;"
 >
-<div class="row justify-content-around">
-  <div class="col-sm-5 mt-2">
-    <img class="logo-picture" src="icons/logo.jpg" alt="" />
-    <div class="container">
-      <h5>About us</h5>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    </div>
-  </div>
-  <div class="col-sm-5 mt-4">
-    <h5>Contact us</h5>
+	<h1>Committees</h1>
+	<div class="row justify-content-around m-1 h-auto">
 
-    <div class="my-2">
-      <img class="me-2" src="{% static 'icons/location.png' %}" alt="" height="30px" />
-      MIU - Misr International University
-    </div>
+		<div class="col-lg-5 border mt-2 p-4 text-center">
+			<h2>Service</h2>
+      <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+		</div>
 
-    <div class="my-2">
-      <img class="me-2" src="{% static 'icons/email.png' %}" alt="" height="30px" />
-      email@email.com
-    </div>
+		<div class="col-lg-5 border mt-2 p-4 text-center">
+			<h2>Charity</h2>
+      <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+			
+		</div>
 
-    <div class="my-2">
-      <img class="me-2" src="{% static 'icons/phone.png' %}" alt="" height="30px" />
-      02-238xxxxx
-    </div>
-  </div>
+	</div>
+	<div class="row justify-content-around m-1 h-auto" >
+
+		<div class="col-lg-5 border mt-2 p-4 text-center">
+			<h2>Case Study</h2>
+      <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+			
+		</div>
+
+		<div class="col-lg-5 border mt-2 p-4 text-center">
+			<h2>HR</h2>
+      <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+			
+		</div>
+
+	</div>
 </div>
-</div>
-
-<script
-src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-crossorigin="anonymous"
-></script>
+        
 </body>
-</html>
+
 {% endblock %}
