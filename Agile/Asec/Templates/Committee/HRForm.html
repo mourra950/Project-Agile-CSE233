@@ -2,6 +2,8 @@
 
 {% block body %}
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title> Activity sheet</title>
 </head>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'> 
@@ -16,9 +18,9 @@ body, form, span, select, input, textarea
      span { display: block; margin: 5px 0; overflow: auto; padding: 0 1%; width: 98%; 
      } </style>
     <h1>Activity sheet</h1>
-    <form action="{% url 'HR_form' %}" method="post">
+    <form action="{% url 'HR_form' %}" method="post" novalidate>
         {% csrf_token %}
-     {{form}}
+     {{form.as_p}}
         <input type="submit">   
     </form>
 

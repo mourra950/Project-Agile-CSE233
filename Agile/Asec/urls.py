@@ -11,5 +11,8 @@ urlpatterns=[
     path("HR_form", views.create_form, name="HR_form"),
     path("submit_form", views.Show_form, name="submit_form"),
     path("announcements", views.show_announcements, name="show_announcements"),
-
+    path("Members", views.add_member, name="Members"),
+    path("list",views.list_members,name="list"),
+    path('delete/<int:id>', views.delete, name='delete'),
+    path('update/<int:id>', views.update, name='update'),
 ]

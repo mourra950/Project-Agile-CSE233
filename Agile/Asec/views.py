@@ -7,6 +7,8 @@ from django.urls import reverse
 from django import forms
 from .models import User
 from .models import Committee_des
+from .models import User
+from django.template import loader
 # Create your views here.
 class NewTaskForm(forms.Form):
     name = forms.CharField(label="full name")
@@ -104,4 +106,29 @@ def Show_form(request):
     return render(request, "Committee/Show_submission.html", {
         "tasks": tasks
     })
-    
+def list_members(request):
+    users = User.objects.all().values()
+    return render(request,"Committee/List_of_members.html",{"users": users})
+def addrecord(request):
+  x = request.POST['username']
+  y = request.POST['email']
+  member = User(username=x, email=y)
+  member.save()
+  return HttpResponseRedirect(reverse('index'))
+def add_member(request):
+  mymembers = User.objects.all().values()
+  output = ""
+  for x in mymembers:
+    output += x["username"]
+    output += x["email"]
+  return HttpResponse(output)
+def delete(request, id):
+  member = User.objects.get(id=id)
+  member.delete()
+  return HttpResponseRedirect(reverse('list_members'))
+def update(request):
+  mymember = User.objects.get(id=id)
+  context = {
+    'mymember': mymember,
+  }
+  return HttpResponse(render(context, request))
