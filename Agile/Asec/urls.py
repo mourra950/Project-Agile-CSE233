@@ -3,14 +3,14 @@ from . import views
 
 # our site url patterns
 urlpatterns=[
-    path("login", views.login_view, name="login"),
+    path("login", views.LoginView, name="Login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.create_register_form, name="register"),
     path("Committee", views.decription, name="Committee"),
     path("main", views.committe_main, name="main"),
     path("HR_form", views.create_form, name="HR_form"),
     path("submit_form", views.Show_form, name="submit_form"),
-    path("announcements", views.show_announcements, name="show_announcements"),
+    path("announcements", views.show_announcements, name="announcements"),
     path("Members", views.add_member, name="Members"),
     path("add/", views.add, name="add"),
     path('add/addrecord/', views.addrecord, name='addrecord'),
@@ -19,6 +19,6 @@ urlpatterns=[
     path('update/<int:id>', views.update, name='update'),
     path('update/updaterecord/<int:id>', views.updaterecord, name='updaterecord'),
     path("HR_Committee", views.HR_decription, name="HR_committee"),
-    path("Login", views.LoginView, name="Login"),
+
   
 ]

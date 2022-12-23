@@ -101,7 +101,7 @@ def LoginView(request):
                 "message": "Invalid username and/or password."
             })
     else:
-        return render(request, "Authentication/Login.html")
+        return render(request, "Authentication/login.html")
 def committe_main(request):
     return render(request, "Committee/main.html")
 def create_form(request):

@@ -1,56 +1,46 @@
 {% extends "General/layout.html" %} 
 {% load static%}
 {% block content %}
-<head>
-    <style>
-        /* .btn {
-        display: inline-block;
-        padding: 10px 25px;
-        margin: 4px 2px;
-        background-color: #1c87c9;
-        border: 3px solid #095484;
-        border-radius: 5px;
-        text-align: center;
-        text-decoration: none;
-        font-size: 20px;
-        color: #fff;
-        cursor: pointer;
-      } */
-      </style>
-</head>
-<body>
+
     <div
 	class="container h-auto my-5 p-3 text-light text-center"
 	style="background-color: rgb(172, 0, 0); border-radius: 20px;"
 >
 	<h1>Committees</h1>
-	<div class="row justify-content-around m-1 h-auto">
-
-		<div class="col-lg-5 border mt-2 p-4 text-center">
-			<h2>Service</h2>
-      <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
-		</div>
-
-		<div class="col-lg-5 border mt-2 p-4 text-center">
-			<h2>Charity</h2>
-      <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
-			
-		</div>
+	<div class="row justify-content-around m-1 h-auto" >
+    <a href="" class="col-lg-5 border mt-2 p-4 text-center" style="text-decoration: none; color: black;">
+      <div >
+        <h2>Service</h2>
+        <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+      </div>
+    </a>
+		
+    <a href="" class="col-lg-5 border mt-2 p-4 text-center" style="text-decoration: none; color: black;">
+      <div >
+        <h2>Charity</h2>
+        <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+      </div>
+    </a>
+		
 
 	</div>
 	<div class="row justify-content-around m-1 h-auto" >
-
-		<div class="col-lg-5 border mt-2 p-4 text-center">
-			<h2>Case Study</h2>
-      <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
-			
-		</div>
-
-		<div class="col-lg-5 border mt-2 p-4 text-center">
-			<h2>HR</h2>
-      <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
-			
-		</div>
+    <a href="" class="col-lg-5 border mt-2 p-4 text-center" style="text-decoration: none; color: black;">
+      <div >
+        <h2>Case Study</h2>
+        <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+        
+      </div>
+    </a>
+		
+    <a href="{% url 'HR_committee'%}" class="col-lg-5 border mt-2 p-4 text-center" style="text-decoration: none; color: black;">
+      <div >
+        <h2>HR</h2>
+        <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+        
+      </div>
+    </a>
+		
 
 	</div>
 </div>
