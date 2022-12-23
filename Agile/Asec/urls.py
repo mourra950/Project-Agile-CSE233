@@ -3,9 +3,9 @@ from . import views
 
 # our site url patterns
 urlpatterns=[
-    path("login", views.LoginView, name="Login"),
+    path("login", views.LoginView, name="login"),
     path("logout", views.logout_view, name="logout"),
-    path("register", views.create_register_form, name="register"),
+    path("register", views.register, name="register"),
     path("Committee", views.decription, name="Committee"),
     path("main", views.committe_main, name="main"),
     path("HR_form", views.create_form, name="HR_form"),

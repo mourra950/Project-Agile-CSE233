@@ -13,11 +13,12 @@ from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 class NewTaskForm(forms.Form):
-    name = forms.CharField(label="full name")
-    Id =forms.IntegerField(label="Id ")
-    task = forms.CharField(label="Assigned Task ")
-    Attendance = forms.CharField(label="Attendence ")
-    Committee = forms.CharField(label="Committee ")
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Full Name'}),label="Full name")
+    Id =forms.IntegerField(label="ID",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'ID'}))
+    task = forms.CharField(label="Assigned Task ",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Assigned Task'}))
+    Attendance = forms.CharField(label="Attendence ",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Attendance'}))
+    Committee = forms.CharField(label="Committee ",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Committee'}))
+
 def login_view(request):
     if request.method == "POST":
 
@@ -41,15 +42,16 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("login"))
 
-
- 
 
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]
+        first_name = request.POST["firstName"]
+        last_name = request.POST["lastName"]
+
 
         # Ensure password matches confirmation
         password = request.POST["password"]
@@ -61,14 +63,14 @@ def register(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username, email, password)
+            user = User.objects.create_user(username, email=email, password= password,first_name=first_name,last_name= last_name)
             user.save()
         except IntegrityError:
             return render(request, "Authentication/register.html", {
                 "message": "Username already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("announcements"))
     else:
         return render(request, "Authentication/register.html")
 
@@ -95,9 +97,9 @@ def LoginView(request):
         if user is not None:
 
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("announcements"))
         else:
-            return render(request, "Authentication/Login.html", {
+            return render(request, "Authentication/login.html", {
                 "message": "Invalid username and/or password."
             })
     else:
@@ -228,7 +230,7 @@ class UserForm(UserCreationForm):
         fields = ['username','email','first_name','last_name','password1','password2','groups']
 def create_register_form(request):
     if request.method == "POST":
-
+        print(request.POST['username'])
         form = UserForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data["username"]

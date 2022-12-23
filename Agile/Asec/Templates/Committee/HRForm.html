@@ -1,27 +1,21 @@
-{% extends "Committee/layout.html" %}
 
-{% block body %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title> Activity sheet</title>
-</head>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'> 
-<style> 
-body, form, span, select, input, textarea 
-{ 
-    font-family: 'Open Sans', sans-serif; font-size: 14px; }
- html { 
-    margin: 0; padding: 0; width: 100%; } 
- form, body { 
-    margin-left: auto; margin-right: auto; max-width: 1000px; }
-     span { display: block; margin: 5px 0; overflow: auto; padding: 0 1%; width: 98%; 
-     } </style>
-    <h1>Activity sheet</h1>
-    <form action="{% url 'HR_form' %}" method="post" novalidate>
+
+{% extends "General/layout.html" %} 
+
+{% block content %}
+<!-- Register Section -->
+<div
+    class="container-lg my-5 p-5 fw-bold"
+    style="background-color: rgb(172, 0, 0); border-radius: 10px; width: 600px;"
+>
+    <h2 class="mb-4 text-center">Attendance</h2>
+    <form action="{% url 'register'%}" method="POST">
         {% csrf_token %}
-     {{form.as_p}}
-        <input type="submit">   
+        {{form.as_div}}
+        <div class="text-center text-light">
+            <input type="submit" class="btn btn-primary btn-block mb-4" value="Sign up">
+        </div> 
+        
     </form>
-
+</div>
 {% endblock %}
