@@ -1,0 +1,19 @@
+{% extends "Committee/layout.html" %}
+
+{% block body %}
+<head>
+    <title>
+        HR Committee
+    </title>
+</head>
+<body>  
+    <img src="https://www.tutorialspoint.com/html/images/test.png" alt="TimeToDonate">
+    
+    <ul>
+        {% for HR in HR_Committee%}
+            <li> Description :{{HR.Description }}</li>
+        {% endfor %}
+    </ul>
+</body>
+
+{% endblock %}

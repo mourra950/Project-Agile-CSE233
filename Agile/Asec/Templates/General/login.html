@@ -1,0 +1,30 @@
+{% extends "General/layout.html" %} 
+
+{% block content %}
+<!-- Announcements Section -->
+<!-- Login Section -->
+<div
+    class="container-lg my-5 p-3"
+    style="background-color: rgb(172, 0, 0); border-radius: 10px; width: 600px;"
+>
+    <form action="POST">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="text-center text-light">
+            <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+    
+            <div >
+                <h5>Not a member? <a href="#!">Register</a></h5>
+            </div>
+        </div>
+        
+    </form>
+</div>
+
+{% endblock %}
