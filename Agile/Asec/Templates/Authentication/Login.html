@@ -1,20 +1,31 @@
+{% extends "General/layout.html" %} 
 
 {% block content %}
-    <h1>Login</h1>
- <body>    
+<!-- Announcements Section -->
+<!-- Login Section -->
+<div
+    class="container-lg my-5 p-3"
+    style="background-color: rgb(172, 0, 0); border-radius: 10px; width: 600px;"
+>
+    <h2 class="mb-4 text-center">Register</h2>
+    <form action="POST">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="text-center text-light">
+            <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+    
+            <div >
+                <h5>Not a member? <a href="{% url 'register' %}">Register</a></h5>
+            </div>
+        </div>
+        
+    </form>
+</div>
 
-    <form>  
-        <div class="container">   
-            <ul><label>Username : </label>   
-            <input type="text" placeholder="Enter Username" name="username" required></ul>  
-            <ul><label>Password : </label>   
-            <input type="password" placeholder="Enter Password" name="password" required> </ul> 
-            <ul><button type="submit">Login</button></ul> 
-            <input type="checkbox" > Remember me   
-            <button type="button" class="cancelbtn"> Cancel</button>
-            <ul>Forgot <a href="#"> password? </a></ul>
-            <ul><a href="{% url 'register' %}"button type="submit">Sign up</button></ul>    
-        </div>   
-    </form>     
-</body>   
 {% endblock %}
