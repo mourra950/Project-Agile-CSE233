@@ -164,21 +164,27 @@ def delete(request, id):
   return HttpResponseRedirect(reverse('list'))
 
 def update(request,id):
-  mymember = User.objects.get(id=id)
-  template = loader.get_template('Committee/Updated_list.html')
-  context = {
-    'mymember': mymember,
-  }
-  return HttpResponse(template.render(context, request))
+    if request.method == 'GET':
+        member = User.objects.get(id=id)
+        
+        return render(request, "Committee/update_member.html", {
+                "member": member
+            })
+    elif request.method == 'POST':
+        first_name = request.POST['firstName']
+        last_name = request.POST['lastName']
+        username = request.POST['username']
+        email = request.POST['email']
+        
+        member = User.objects.get(id=id)
 
-def updaterecord(request, id):
-  x = request.POST['username']
-  y = request.POST['email']
-  member = User.objects.get(id=id)
-  member.username = x
-  member.email = y
-  member.save()
-  return HttpResponseRedirect(reverse('index'))
+        member.first_name = first_name
+        member.last_name = last_name
+        member.username = username
+        member.email = email
+        member.save()
+        return HttpResponseRedirect(reverse('announcements'))
+
 
 def list_members(request):
     members = User.objects.all().values()
