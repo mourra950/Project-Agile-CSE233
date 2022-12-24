@@ -12,6 +12,12 @@ class Committee_des(models.Model):
     Description=models.CharField(max_length=255)
     def __str__(self):
         return f"{self.id}: {self.Description}"
+
+class Committee(models.Model):
+    name = models.CharField(max_length=30)
+    description = models.CharField(max_length=255)
+    photo = models.CharField(max_length=30)
+    head = models.ForeignKey(User, on_delete=models.CASCADE, related_name="committee")
    
 class Tracker(models.Model):
     pass

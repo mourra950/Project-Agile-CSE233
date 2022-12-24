@@ -6,8 +6,8 @@ from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from django import forms
 from .models import User
+from .models import Committee
 from django import forms
-from .models import Committee_des
 from .models import User
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
@@ -74,14 +74,12 @@ def register(request):
     else:
         return render(request, "Authentication/register.html")
 
-def decription(request):
-    return render(request, "Committee/Service.html",{
-        "Committee":Committee_des.objects.filter(id=1)
-    })
-
-def HR_decription(request):
-    return render(request, "Committee/HR_committee.html",{
-        "HR_Committee":Committee_des.objects.filter(id=3)
+def show_committee(request, committeeId):
+    committee = Committee.objects.get(id=committeeId)
+    return render(request, "Committee/show_committee.html",{
+        "name":committee.name,
+        "description": committee.description,
+        "photo": committee.photo
     })
 
 
@@ -126,14 +124,17 @@ def create_form(request):
     return render(request,"Committee/HRForm.html" ,
    
                { "form" :NewTaskForm()})
+
 def show_announcements(request):
     if request.method == 'GET':
         return render(request, "Announcements/announcements.html")
+
 tasks=[ ]
 def Show_form(request):
     return render(request, "Committee/Show_submission.html", {
         "tasks": tasks
     })
+
 def index(request):
   mymembers = User.objects.all().values()
   template = loader.get_template('Committee/List_of_members.html')
@@ -141,9 +142,15 @@ def index(request):
     'mymembers': mymembers,
   }
   return HttpResponse(template.render(context,request))
+
 def add(request):
-    template = loader.get_template('Committee/Add_member.html')
-    return HttpResponse(template.render({}, request))
+    committees = Committee.objects.all()
+
+    return render(request, "Committee/Add_member.html", {
+        "committees": committees
+    })
+
+
 def addrecord(request):
   x = request.POST['username']
   y = request.POST['email']
@@ -155,6 +162,7 @@ def delete(request, id):
   member = User.objects.get(id=id)
   member.delete()
   return HttpResponseRedirect(reverse('list_members'))
+
 def update(request,id):
   mymember = User.objects.get(id=id)
   template = loader.get_template('Committee/Updated_list.html')
@@ -162,6 +170,7 @@ def update(request,id):
     'mymember': mymember,
   }
   return HttpResponse(template.render(context, request))
+
 def updaterecord(request, id):
   x = request.POST['username']
   y = request.POST['email']
@@ -174,6 +183,7 @@ def updaterecord(request, id):
 def list_members(request):
     users = User.objects.all().values()
     return render(request,"Committee/List_of_members.html",{"users": users})
+
 def add_member(request):
   mymembers = User.objects.all().values()
   output = ""
@@ -181,6 +191,7 @@ def add_member(request):
     output += x["username"]
     output += x["email"]
   return HttpResponse(output)
+
 class UserForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(
         attrs={
@@ -228,6 +239,7 @@ class UserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','email','first_name','last_name','password1','password2','groups']
+        
 def create_register_form(request):
     if request.method == "POST":
         print(request.POST['username'])
