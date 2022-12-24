@@ -13,12 +13,12 @@ urlpatterns=[
     path("add/", views.add, name="add"),
     path("list",views.list_members,name="list"), 
     path('delete/<int:id>', views.delete, name='delete'),
+    path('update/<int:id>', views.update, name='update'),
 
     path("submit_form", views.Show_form, name="submit_form"), # Msh fahemha
     path("Members", views.add_member, name="Members"), # Msh m7tagenha
     path('add/addrecord/', views.addrecord, name='addrecord'), # error
 
-    path('update/<int:id>', views.update, name='update'),
-    path('update/updaterecord/<int:id>', views.updaterecord, name='updaterecord'),
+    
 
 ]
