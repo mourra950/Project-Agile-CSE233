@@ -161,7 +161,7 @@ def addrecord(request):
 def delete(request, id):
   member = User.objects.get(id=id)
   member.delete()
-  return HttpResponseRedirect(reverse('list_members'))
+  return HttpResponseRedirect(reverse('list'))
 
 def update(request,id):
   mymember = User.objects.get(id=id)
@@ -181,8 +181,9 @@ def updaterecord(request, id):
   return HttpResponseRedirect(reverse('index'))
 
 def list_members(request):
-    users = User.objects.all().values()
-    return render(request,"Committee/List_of_members.html",{"users": users})
+    members = User.objects.all().values()
+    return render(request,"Committee/List_of_members.html",{"members": members})
+
 
 def add_member(request):
   mymembers = User.objects.all().values()
