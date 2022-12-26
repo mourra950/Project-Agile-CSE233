@@ -129,6 +129,9 @@ def show_announcements(request):
     if request.method == 'GET':
         return render(request, "Announcements/announcements.html")
 
+def about_us_view(request):
+    if request.method == 'GET':
+        return render(request, "General/about_us.html")
 tasks=[ ]
 def Show_form(request):
     return render(request, "Committee/Show_submission.html", {
@@ -137,7 +140,7 @@ def Show_form(request):
 
 def index(request):
   mymembers = User.objects.all().values()
-  template = loader.get_template('Committee/List_of_members.html')
+  template = loader.get_template('Admin/List_of_members.html')
   context = {
     'mymembers': mymembers,
   }
@@ -146,7 +149,7 @@ def index(request):
 def add(request):
     committees = Committee.objects.all()
 
-    return render(request, "Committee/Add_member.html", {
+    return render(request, "Admin/Add_member.html", {
         "committees": committees
     })
 
@@ -167,7 +170,7 @@ def update(request,id):
     if request.method == 'GET':
         member = User.objects.get(id=id)
         
-        return render(request, "Committee/update_member.html", {
+        return render(request, "Admin/update_member.html", {
                 "member": member
             })
     elif request.method == 'POST':
@@ -188,7 +191,7 @@ def update(request,id):
 
 def list_members(request):
     members = User.objects.all().values()
-    return render(request,"Committee/List_of_members.html",{"members": members})
+    return render(request,"Admin/List_of_members.html",{"members": members})
 
 
 def add_member(request):
