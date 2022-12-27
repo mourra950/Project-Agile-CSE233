@@ -8,7 +8,7 @@ from django import forms
 from .models import User
 from .models import Committee
 from django import forms
-from .models import User
+from .models import User,Role,Urls
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
@@ -51,28 +51,39 @@ def register(request):
         email = request.POST["email"]
         first_name = request.POST["firstName"]
         last_name = request.POST["lastName"]
-
+        committeeId = request.POST["committeeId"]
+        try:
+            committee = Committee.objects.get(id=committeeId)
+        except ValueError:
+            return render(request, "Authentication/register.html", {
+                "message": "Please select a Committee",
+                'committees': Committee.objects.all()
+            })
 
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
             return render(request, "Authentication/register.html", {
-                "message": "Passwords must match."
+                "message": "Passwords must match.",
+                'committees': Committee.objects.all()
             })
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username, email=email, password= password,first_name=first_name,last_name= last_name)
+            user = User.objects.create_user(username, email=email, password= password,first_name=first_name,last_name= last_name,roleId=Role.objects.get(id=3),committeeId=committee )
             user.save()
         except IntegrityError:
             return render(request, "Authentication/register.html", {
-                "message": "Username already taken."
+                "message": "Username already taken.",
+                'committees': Committee.objects.all()
             })
         login(request, user)
         return HttpResponseRedirect(reverse("announcements"))
     else:
-        return render(request, "Authentication/register.html")
+        return render(request, "Authentication/register.html",{
+            'committees': Committee.objects.all()
+        })
 
 def show_committee(request, committeeId):
     committee = Committee.objects.get(id=committeeId)
@@ -147,17 +158,66 @@ def index(request):
   return HttpResponse(template.render(context,request))
 
 def add(request):
-    if request.user.is_superuser:
-        committees = Committee.objects.all()
+    if request.method == 'POST':
+        if request.user.is_superuser:
+            username = request.POST["username"]
+            email = request.POST["email"]
+            first_name = request.POST["firstName"]
+            last_name = request.POST["lastName"]
+            committeeId = request.POST["committeeId"]
+            roleId = request.POST["roleId"]
 
-        return render(request, "Admin/Add_member.html", {
-            "committees": committees
-        })
+            try:
+                committee = Committee.objects.get(id=committeeId)
+                role = Role.objects.get(id= roleId)
+            except ValueError:
+                return render(request, "Admin/Add_member.html", {
+                    "message": "Please select a Committee/Role",
+                    "committees": Committee.objects.all(),
+                    "roles": Role.objects.all()
+                })
+
+            # Ensure password matches confirmation
+            password = request.POST["password"]
+            confirmation = request.POST["confirmation"]
+            if password != confirmation:
+                return render(request, "Admin/Add_member.html", {
+                    "message": "Passwords must match.",
+                    "committees": Committee.objects.all(),
+                    "roles": Role.objects.all()
+                })
+
+            # Attempt to create new user
+            try:
+                user = User.objects.create_user(username, email=email, password= password,first_name=first_name,last_name= last_name,roleId=role,committeeId=committee )
+                user.save()
+            except IntegrityError:
+                return render(request, "Admin/Add_member.html", {
+                    "message": "Username already taken.",
+                    "committees": Committee.objects.all(),
+                    "roles": Role.objects.all()
+                })
+            return HttpResponseRedirect(reverse("announcements"))
+        else:
+            logout(request)
+            return render(request, "Authentication/login.html", {
+                    "message": "Requires admin previliges",
+                    "committees": Committee.objects.all(),
+                    "roles": Role.objects.all()
+                })
     else:
-        logout(request)
-        return render(request, "Authentication/login.html", {
-                "message": "Requires admin previliges"
+        if request.user.is_superuser:
+            committees = Committee.objects.all()
+
+            return render(request, "Admin/Add_member.html", {
+                "committees": committees,
+                "roles": Role.objects.all()
             })
+        else:
+            logout(request)
+            return render(request, "Authentication/login.html", {
+                    "message": "Requires admin previliges"
+                })
 
 
 
@@ -209,6 +269,10 @@ def update(request,id):
 
 
 def list_members(request):
+    roleId = Role.objects.get(id= request.user.roleId.pk)
+    url = Urls.objects.get(name= 'list')
+    if url.role_set.filter(pk=roleId.pk).exists():
+        print('EXISTS')
     if request.user.is_superuser:
         members = User.objects.all().values()
         return render(request,"Admin/List_of_members.html",{"members": members})

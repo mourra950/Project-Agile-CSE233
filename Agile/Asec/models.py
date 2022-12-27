@@ -9,21 +9,21 @@ class User(AbstractUser):
 class Role(models.Model):
     name = models.CharField(max_length=20,blank=True,null=True)
     urlId = models.ManyToManyField("Urls")
-    def __str__(self):
-        return f"{self.id}: {self.name}"
+    # def __str__(self):
+    #     return f"{self.id}: {self.name}"
 
 class Urls(models.Model):
-    name= models.CharField(max_length=20, default='null')
-    def __str__(self):
-        return f"{self.id}: {self.name}"
+    name= models.CharField(max_length=20, default='null',unique=True)
+    # def __str__(self):
+    #     return f"{self.id}: {self.name}"
 
 class Committee(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=255)
     photo = models.CharField(max_length=30)
     headId = models.ForeignKey("User", on_delete=models.CASCADE,blank=True,null=True)
-    def __str__(self):
-        return f"{self.id}: {self.name}"
+    # def __str__(self):
+    #     return f"{self.id}: {self.name}"
    
 class Tracker(models.Model):
     pass
