@@ -6,10 +6,14 @@ urlpatterns=[
     path("login", views.LoginView, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
+
     path("HR_form", views.create_form, name="HR_form"),
     path("main", views.committe_main, name="main"),
     path("announcements", views.show_announcements, name="announcements"),
     path("show_committee/<int:committeeId>", views.show_committee, name="HR_committee"),
+    path("about_us", views.about_us_view, name="about_us"),
+
+    
     path("add/", views.add, name="add"),
     path("list",views.list_members,name="list"), 
     path('delete/<int:id>', views.delete, name='delete'),

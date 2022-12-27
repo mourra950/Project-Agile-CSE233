@@ -129,6 +129,9 @@ def show_announcements(request):
     if request.method == 'GET':
         return render(request, "Announcements/announcements.html")
 
+def about_us_view(request):
+    if request.method == 'GET':
+        return render(request, "General/about_us.html")
 tasks=[ ]
 def Show_form(request):
     return render(request, "Committee/Show_submission.html", {
@@ -137,18 +140,25 @@ def Show_form(request):
 
 def index(request):
   mymembers = User.objects.all().values()
-  template = loader.get_template('Committee/List_of_members.html')
+  template = loader.get_template('Admin/List_of_members.html')
   context = {
     'mymembers': mymembers,
   }
   return HttpResponse(template.render(context,request))
 
 def add(request):
-    committees = Committee.objects.all()
+    if request.user.is_superuser:
+        committees = Committee.objects.all()
 
-    return render(request, "Committee/Add_member.html", {
-        "committees": committees
-    })
+        return render(request, "Admin/Add_member.html", {
+            "committees": committees
+        })
+    else:
+        logout(request)
+        return render(request, "Authentication/login.html", {
+                "message": "Requires admin previliges"
+            })
+
 
 
 def addrecord(request):
@@ -159,36 +169,54 @@ def addrecord(request):
   return HttpResponseRedirect(reverse('index'))
 
 def delete(request, id):
-  member = User.objects.get(id=id)
-  member.delete()
-  return HttpResponseRedirect(reverse('list'))
+    if request.user.is_superuser:
+        member = User.objects.get(id=id)
+        member.delete()
+        return HttpResponseRedirect(reverse('list'))
+    else:
+        logout(request)
+        return render(request, "Authentication/login.html", {
+                "message": "Requires admin previliges"
+            })
 
 def update(request,id):
-    if request.method == 'GET':
-        member = User.objects.get(id=id)
-        
-        return render(request, "Committee/update_member.html", {
-                "member": member
-            })
-    elif request.method == 'POST':
-        first_name = request.POST['firstName']
-        last_name = request.POST['lastName']
-        username = request.POST['username']
-        email = request.POST['email']
-        
-        member = User.objects.get(id=id)
+    if request.user.is_superuser:
+        if request.method == 'GET':
+            member = User.objects.get(id=id)
+            
+            return render(request, "Admin/update_member.html", {
+                    "member": member
+                })
+        elif request.method == 'POST':
+            first_name = request.POST['firstName']
+            last_name = request.POST['lastName']
+            username = request.POST['username']
+            email = request.POST['email']
+            
+            member = User.objects.get(id=id)
 
-        member.first_name = first_name
-        member.last_name = last_name
-        member.username = username
-        member.email = email
-        member.save()
-        return HttpResponseRedirect(reverse('announcements'))
+            member.first_name = first_name
+            member.last_name = last_name
+            member.username = username
+            member.email = email
+            member.save()
+            return HttpResponseRedirect(reverse('announcements'))
+    else:
+        logout(request)
+        return render(request, "Authentication/login.html", {
+                "message": "Requires admin previliges"
+            })
 
 
 def list_members(request):
-    members = User.objects.all().values()
-    return render(request,"Committee/List_of_members.html",{"members": members})
+    if request.user.is_superuser:
+        members = User.objects.all().values()
+        return render(request,"Admin/List_of_members.html",{"members": members})
+    else:
+        logout(request)
+        return render(request, "Authentication/login.html", {
+                "message": "Requires admin previliges"
+            })
 
 
 def add_member(request):
