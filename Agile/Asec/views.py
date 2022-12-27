@@ -268,3 +268,5 @@ def create_register_form(request):
     return render(request,"Authentication/register.html" ,
    
                { "form" :UserForm()})
+def admin(request):
+    return render(request,"Announcements/admin_page.html")

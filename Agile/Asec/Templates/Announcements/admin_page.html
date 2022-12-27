@@ -1,0 +1,21 @@
+{% extends "General/layout.html" %} 
+
+{% block content %}
+<div
+	class="container my-5 text-light"
+	style="background-color: rgb(172, 0, 0); border-radius: 20px"
+>
+   <h2>Admin</h2>
+   <form>
+     <div class="form-group">
+      <label for="Announcement">Announcement</label>
+      <textarea class="form-control" rows="10" id="Announcement"></textarea>
+     </div>
+
+     <div class="text-center text-light">
+        <input type="submit" class="btn btn-primary btn-block mb-4 " value="Add announcement">
+     </div>
+    
+   </form>
+
+{% endblock %}

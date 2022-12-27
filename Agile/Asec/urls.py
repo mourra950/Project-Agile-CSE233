@@ -18,7 +18,7 @@ urlpatterns=[
     path("submit_form", views.Show_form, name="submit_form"), # Msh fahemha
     path("Members", views.add_member, name="Members"), # Msh m7tagenha
     path('add/addrecord/', views.addrecord, name='addrecord'), # error
-
+    path("admin_view", views.admin, name="announcements")
     
 
 ]
