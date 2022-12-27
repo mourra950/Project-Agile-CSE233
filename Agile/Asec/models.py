@@ -2,22 +2,28 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class User(AbstractUser):
-    pass
+    committeeId = models.ForeignKey("Committee", on_delete=models.CASCADE,blank=True,null=True)
+    roleId = models.ForeignKey("Role", on_delete=models.CASCADE,blank=True,null=True)
+
 
 class Role(models.Model):
-    pass
-
-class Committee_des(models.Model):
-    #Name=models.CharField(max_length=50)
-    Description=models.CharField(max_length=255)
+    name = models.CharField(max_length=20,blank=True,null=True)
+    urlId = models.ManyToManyField("Urls")
     def __str__(self):
-        return f"{self.id}: {self.Description}"
+        return f"{self.id}: {self.name}"
+
+class Urls(models.Model):
+    name= models.CharField(max_length=20, default='null')
+    def __str__(self):
+        return f"{self.id}: {self.name}"
 
 class Committee(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=255)
     photo = models.CharField(max_length=30)
-    head = models.ForeignKey(User, on_delete=models.CASCADE, related_name="committee")
+    headId = models.ForeignKey("User", on_delete=models.CASCADE,blank=True,null=True)
+    def __str__(self):
+        return f"{self.id}: {self.name}"
    
 class Tracker(models.Model):
     pass
