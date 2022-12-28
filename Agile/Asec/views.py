@@ -269,10 +269,14 @@ def update(request,id):
 
 
 def list_members(request):
-    roleId = Role.objects.get(id= request.user.roleId.pk)
-    url = Urls.objects.get(name= 'list')
-    if url.role_set.filter(pk=roleId.pk).exists():
-        print('EXISTS')
+    
+    if request.user.is_authenticated:
+        roleId = Role.objects.get(id= request.user.roleId.pk)
+        url = Urls.objects.get(name= 'list')
+        if url.role_set.filter(pk=roleId.pk).exists():
+            print('ALLOWED')
+        else: 
+            print('NOT ALLOWED')
     if request.user.is_superuser:
         members = User.objects.all().values()
         return render(request,"Admin/List_of_members.html",{"members": members})
