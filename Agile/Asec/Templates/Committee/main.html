@@ -7,42 +7,27 @@
 	style="background-color: rgb(172, 0, 0); border-radius: 20px;"
 >
 	<h1>Committees</h1>
-	<div class="row justify-content-around m-1 h-auto" >
-    <a href="" class="col-lg-5 border mt-2 p-4 text-center" style="text-decoration: none; color: black;">
-      <div >
-        <h2>Service</h2>
-        <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
-      </div>
-    </a>
-		
-    <a href="" class="col-lg-5 border mt-2 p-4 text-center" style="text-decoration: none; color: black;">
-      <div >
-        <h2>Charity</h2>
-        <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
-      </div>
-    </a>
-		
-
-	</div>
-	<div class="row justify-content-around m-1 h-auto" >
-    <a href="" class="col-lg-5 border mt-2 p-4 text-center" style="text-decoration: none; color: black;">
-      <div >
-        <h2>Case Study</h2>
-        <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+    {% for committee in committees%}
+      {% if forloop.counter0|divisibleby:2 %}
+        <div class="row justify-content-around m-1 h-auto" >
+          <a href="show_committee/{{committee.id}}" class="col-lg-5 border mt-2 p-4 text-center" style="text-decoration: none; color: black;">
+            <div >
+              <h2>{{committee.name}}</h2>
+              <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+            </div>
+          </a>
+      {%else%}
+          <a href="show_committee/{{committee.id}}" class="col-lg-5 border mt-2 p-4 text-center" style="text-decoration: none; color: black;">
+            <div >
+              <h2>{{committee.name}}</h2>
+              <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
+            </div>
+          </a>
         
-      </div>
-    </a>
-		
-    <a href="{% url 'HR_committee'%}" class="col-lg-5 border mt-2 p-4 text-center" style="text-decoration: none; color: black;">
-      <div >
-        <h2>HR</h2>
-        <img class="w-100" src="{% static 'pictures/committee.jpg' %}" alt="">
-        
-      </div>
-    </a>
-		
-
-	</div>
+        </div>
+      {% endif %}
+    {% endfor%}
+	
 </div>
         
 </body>

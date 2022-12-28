@@ -114,7 +114,9 @@ def LoginView(request):
     else:
         return render(request, "Authentication/login.html")
 def committe_main(request):
-    return render(request, "Committee/main.html")
+    return render(request, "Committee/main.html",{
+        'committees':Committee.objects.all()
+    })
 def create_form(request):
     if request.method == "POST":
 
@@ -150,10 +152,10 @@ def Show_form(request):
     })
 
 def index(request):
-  mymembers = User.objects.all().values()
+  members = User.objects.all().values()
   template = loader.get_template('Admin/List_of_members.html')
   context = {
-    'mymembers': mymembers,
+    'members': members,
   }
   return HttpResponse(template.render(context,request))
 
@@ -278,7 +280,7 @@ def list_members(request):
         else: 
             print('NOT ALLOWED')
     if request.user.is_superuser:
-        members = User.objects.all().values()
+        members = User.objects.all()
         return render(request,"Admin/List_of_members.html",{"members": members})
     else:
         logout(request)

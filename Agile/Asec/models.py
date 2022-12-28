@@ -14,16 +14,16 @@ class Role(models.Model):
 
 class Urls(models.Model):
     name= models.CharField(max_length=20,unique=True)
-    # def __str__(self):
-    #     return f"{self.id}: {self.name}"
+    def __str__(self):
+        return f"{self.id}: {self.name}"
 
 class Committee(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=255)
     photo = models.CharField(max_length=30)
     headId = models.ForeignKey("User", on_delete=models.CASCADE)
-    # def __str__(self):
-    #     return f"{self.id}: {self.name}"
+    def __str__(self):
+        return f"{self.id}: {self.name}"
    
 class Tracker(models.Model):
     pass
