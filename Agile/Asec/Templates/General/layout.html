@@ -37,31 +37,31 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link active fw-bold" aria-current="page" href="{% url 'announcements'%}"
+							<a class="nav-link active fw-bold text-light" aria-current="page" href="{% url 'announcements'%}"
 								>Home</a
 							>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active fw-bold" href="{% url 'main'%}">Committees</a>
+							<a class="nav-link active fw-bold text-light" href="{% url 'main'%}">Committees</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active fw-bold" href="{% url 'about_us'%}">About us</a>
+							<a class="nav-link active fw-bold text-light" href="{% url 'about_us'%}">About us</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active fw-bold" href="#contact-us">Contact us</a>
+							<a class="nav-link active fw-bold text-light" href="#contact-us">Contact us</a>
 						</li>
 						{% if user.is_superuser %}
 						<li class="nav-item">
-							<a class="nav-link active fw-bold" href="{% url 'list'%}">List of members</a>
+							<a class="nav-link active fw-bold text-light" href="{% url 'list'%}">List of members</a>
 						</li>
 						{% endif %}
 
 					</ul>
 					<div class="d-flex">
 						{% if user.is_authenticated %}
-							<a href="{% url 'logout' %}"class="btn btn-outline-dark fw-bold" href="#">Logout</a>
+							<a href="{% url 'logout' %}"class="btn btn-outline-light fw-bold" href="#">Logout</a>
 						{% else %}
-							<a href="{% url 'login' %}"class="btn btn-outline-dark fw-bold" href="#">Login</a>
+							<a href="{% url 'login' %}"class="btn btn-outline-light fw-bold" href="#">Login</a>
 						{% endif %}
 
 						

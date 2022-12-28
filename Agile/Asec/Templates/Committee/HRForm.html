@@ -8,8 +8,8 @@
     class="container-lg my-5 p-5 fw-bold"
     style="background-color: rgb(172, 0, 0); border-radius: 10px; width: 600px;"
 >
-    <h2 class="mb-4 text-center">Attendance</h2>
-    <form action="{% url 'register'%}" method="POST">
+    <h2 class="mb-4 text-center text-light">Attendance</h2>
+    <form action="{% url 'register'%}" method="POST" class="text-light">
         {% csrf_token %}
         {{form.as_div}}
         <div class="text-center text-light">

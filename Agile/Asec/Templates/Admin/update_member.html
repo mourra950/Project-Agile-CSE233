@@ -6,7 +6,7 @@
     class="container-lg my-5 p-5 "
     style="background-color: rgb(172, 0, 0); border-radius: 10px; width: 600px;"
 >
-    <h2 class="mb-4 text-center">Update Member</h2>
+    <h2 class="mb-4 text-center text-light">Update Member</h2>
     <form action="{% url 'update' id=member.id%}" method="POST">
         {% csrf_token %}
         <div class="form-floating mb-3">
