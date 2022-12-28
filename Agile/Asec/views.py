@@ -19,6 +19,12 @@ class NewTaskForm(forms.Form):
     Attendance = forms.CharField(label="Attendence ",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Attendance'}))
     Committee = forms.CharField(label="Committee ",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Committee'}))
 
+def is_allowed(request, urlName):
+    roleId = Role.objects.get(id= request.user.roleId.pk)
+    url = Urls.objects.get(name= urlName)  
+
+    return url.role_set.filter(pk=roleId.pk).exists()
+
 def login_view(request):
     if request.method == "POST":
 
@@ -134,9 +140,10 @@ def create_form(request):
             return render(request, "Committee/HRForm.html", {
                 "form": form
             })
-    return render(request,"Committee/HRForm.html" ,
-   
-               { "form" :NewTaskForm()})
+    else:
+        return render(request,"Committee/HRForm.html" ,
+    
+                { "form" :NewTaskForm()})
 
 def show_announcements(request):
     if request.method == 'GET':
@@ -161,7 +168,7 @@ def index(request):
 
 def add(request):
     if request.method == 'POST':
-        if request.user.is_superuser:
+        if is_allowed(request,'add'):
             username = request.POST["username"]
             email = request.POST["email"]
             first_name = request.POST["firstName"]
@@ -201,12 +208,7 @@ def add(request):
                 })
             return HttpResponseRedirect(reverse("announcements"))
         else:
-            logout(request)
-            return render(request, "Authentication/login.html", {
-                    "message": "Requires admin previliges",
-                    "committees": Committee.objects.all(),
-                    "roles": Role.objects.all()
-                })
+            return HttpResponse("<h2>Page requires admin previliges</h2>")
     else:
         if request.user.is_superuser:
             committees = Committee.objects.all()
@@ -216,33 +218,20 @@ def add(request):
                 "roles": Role.objects.all()
             })
         else:
-            logout(request)
-            return render(request, "Authentication/login.html", {
-                    "message": "Requires admin previliges"
-                })
+            return HttpResponse("<h2>Page requires admin previliges</h2>")
 
 
-
-def addrecord(request):
-  x = request.POST['username']
-  y = request.POST['email']
-  member = User(username=x,email=y)
-  member.save()
-  return HttpResponseRedirect(reverse('index'))
 
 def delete(request, id):
-    if request.user.is_superuser:
+    if is_allowed(request,'delete'):
         member = User.objects.get(id=id)
         member.delete()
         return HttpResponseRedirect(reverse('list'))
     else:
-        logout(request)
-        return render(request, "Authentication/login.html", {
-                "message": "Requires admin previliges"
-            })
+        return HttpResponse("<h2>Page requires admin previliges</h2>")
 
 def update(request,id):
-    if request.user.is_superuser:
+    if is_allowed(request,'update'):
         if request.method == 'GET':
             member = User.objects.get(id=id)
             
@@ -264,107 +253,19 @@ def update(request,id):
             member.save()
             return HttpResponseRedirect(reverse('announcements'))
     else:
-        logout(request)
-        return render(request, "Authentication/login.html", {
-                "message": "Requires admin previliges"
-            })
+        return HttpResponse("<h2>Page requires admin previliges</h2>")
 
 
 def list_members(request):
     
-    if request.user.is_authenticated:
-        roleId = Role.objects.get(id= request.user.roleId.pk)
-        url = Urls.objects.get(name= 'list')
-        if url.role_set.filter(pk=roleId.pk).exists():
-            print('ALLOWED')
+    if not request.user.is_anonymous:
+        if is_allowed(request,'list'):
+            members = User.objects.all()
+            return render(request,"Admin/List_of_members.html",{"members": members})
         else: 
-            print('NOT ALLOWED')
-    if request.user.is_superuser:
-        members = User.objects.all()
-        return render(request,"Admin/List_of_members.html",{"members": members})
+            return HttpResponse("<h2>Page requires admin previliges</h2>")
     else:
-        logout(request)
-        return render(request, "Authentication/login.html", {
-                "message": "Requires admin previliges"
-            })
+        return HttpResponse("<h2>Page requires admin previliges</h2>")
 
-
-def add_member(request):
-  mymembers = User.objects.all().values()
-  output = ""
-  for x in mymembers:
-    output += x["username"]
-    output += x["email"]
-  return HttpResponse(output)
-
-class UserForm(UserCreationForm):
-    username = forms.CharField(widget=forms.TextInput(
-        attrs={
-            'type': 'username',
-            'placeholder':('Username')
-        }
-    ))
-    first_name = forms.CharField(widget=forms.TextInput(
-        attrs={
-            'type': 'first_name',
-            'placeholder':('First Name')
-        }
-    )) 
-    last_name = forms.CharField(widget=forms.TextInput(
-        attrs={
-            'type':'last_name',
-            'placeholder':('Last Name')
-        }
-    ))
-    email = forms.EmailField(widget=forms.TextInput(
-        attrs={
-            'type':'email',
-            'placeholder':('Email')
-        }
-    ))
-    password1 = forms.CharField(max_length=16,widget=forms.PasswordInput(
-        attrs={
-            # 'class':'form-control',
-            'placeholder':'Password'
-        }
-    ))
-    password2 = forms.CharField(max_length=16,widget=forms.PasswordInput(
-        attrs={
-            # 'class':'form-control',
-            'placeholder':'Repeat Password'
-        }
-    ))
-    group_choices = (
-        ('M','Manager'),
-        ('U','User'),
-        ('C','Customer'),   
-    )
-    groups = forms.ChoiceField(choices=group_choices)
-
-    class Meta:
-        model = User
-        fields = ['username','email','first_name','last_name','password1','password2','groups']
-        
-def create_register_form(request):
-    if request.method == "POST":
-        print(request.POST['username'])
-        form = UserForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data["username"]
-            email= form.cleaned_data["email"]
-            first_name= form.cleaned_data["first_name"]
-            last_name=form.cleaned_data["last_name"]
-            password1=form.cleaned_data["password1"]
-            password2=form.cleaned_data["password2"]
-            groups=form.cleaned_data["groups"]
-            return HttpResponseRedirect(reverse("login"))
-        else:
-            # If the form is invalid, re-render the page with existing information.
-            return render(request, "Authentication/register.html", {
-                "form": form
-            })
-    return render(request,"Authentication/register.html" ,
-   
-               { "form" :UserForm()})
 def admin(request):
     return render(request,"Announcements/admin_page.html")
