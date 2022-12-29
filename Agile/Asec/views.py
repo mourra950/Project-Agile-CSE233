@@ -8,7 +8,7 @@ from django import forms
 from .models import User
 from .models import Committee
 from django import forms
-from .models import User,Role,Urls
+from .models import User,Role,Urls,announcemnets
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
@@ -19,6 +19,8 @@ class NewTaskForm(forms.Form):
     Attendance = forms.CharField(label="Attendence ",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Attendance'}))
     Committee = forms.CharField(label="Committee ",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Committee'}))
 
+
+    
 def is_allowed(request, urlName):
     roleId = Role.objects.get(id= request.user.roleId.pk)
     url = Urls.objects.get(name= urlName)  
@@ -269,3 +271,11 @@ def list_members(request):
 
 def admin(request):
     return render(request,"Announcements/admin_page.html")
+def events(request):
+    if request.method == 'GET':
+        ann = announcemnets.objects.all()
+        return render(request,"Announcements/announcements.html",{"ann": ann})
+    else: 
+        return HttpResponse("<h2>Page requires admin previliges</h2>")
+    
+    
