@@ -1,3 +1,4 @@
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -11,9 +12,10 @@ from django import forms
 from .models import User,Role,Urls,announcemnets
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
+from django.core import serializers
 # Create your views here.
 class NewTaskForm(forms.Form):
-    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Full Name'}),label="Full name")
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Full Name','list':'names'}),label="Full name")
     Id =forms.IntegerField(label="ID",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'ID'}))
     task = forms.CharField(label="Assigned Task ",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Assigned Task'}))
     Attendance = forms.CharField(label="Attendence ",widget=forms.TextInput(attrs={'class': 'form-control form-floating mb-3','placeholder':'Attendance'}))
@@ -127,25 +129,17 @@ def committe_main(request):
     })
 def create_form(request):
     if request.method == "POST":
-
-        form = NewTaskForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data["name"]
-            id = form.cleaned_data["Id"]
-            task = form.cleaned_data["task"]
-            Attendance=form.cleaned_data["Attendance"]
-            tasks.append("Name"+":"+name+","+"Task" +":"+task+","+"attendance"+":"+Attendance)
-            print("\n")
-            return HttpResponseRedirect(reverse("submit_form"))
-        else:
-            # If the form is invalid, re-render the page with existing information.
-            return render(request, "Committee/HRForm.html", {
-                "form": form
-            })
+        full_name = request.POST["fullName"]
+        id = request.POST["id"]
+        task = request.POST["task"]
+        attendance = request.POST["attendance"]
+        committeeId = request.POST["committeeId"]
+        
     else:
-        return render(request,"Committee/HRForm.html" ,
-    
-                { "form" :NewTaskForm()})
+        return render(request,"Committee/HRForm.html" ,{ 
+                'members' : User.objects.all(),
+                'committees': Committee.objects.all()
+            })
 
 def show_announcements(request):
     if request.method == 'GET':

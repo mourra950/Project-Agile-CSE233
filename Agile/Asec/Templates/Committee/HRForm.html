@@ -4,13 +4,46 @@
 {% block content %}
 <!-- Register Section -->
 <div
-    class="container-lg my-5 p-5 fw-bold"
+    class="container-lg my-5 p-5 "
     style="background-color: rgb(172, 0, 0); border-radius: 10px; width: 600px;"
 >
     <h2 class="mb-4 text-center text-light">Attendance</h2>
-    <form action="{% url 'register'%}" method="POST" class="text-light">
+    <form action="/register" method="POST">
         {% csrf_token %}
-        {{form.as_div}}
+    
+        <div class="form-floating mb-3">
+            <input type="text" name="fullName" class="form-control" placeholder="Full Name" list="names" id="id_name" required >
+            <label for="id_name">Full name</label>
+        </div>
+        <div class="form-floating mb-3">
+            
+            <input type="text" name="id" class="form-control" placeholder="ID" required id="id_Id">
+            <label for="id_Id">ID</label>
+        </div>
+        <div class="form-floating mb-3">
+            
+            <input type="text" name="task" class="form-control" placeholder="Assigned Task" required id="id_task">
+            <label for="id_task">Assigned Task </label>
+        </div>
+        <div class="form-floating mb-3">
+            
+            <input type="text" name="attendance" class="form-control" placeholder="Attendance" required id="id_Attendance">
+            <label for="id_Attendance">Attendence</label>
+        </div>
+
+        <select class="form-select" aria-label="Default select example" name="committeeId" required>
+            <option selected>Select Committee</option>
+            {% for committee in committees%}
+                <option value="{{committee.id}}">{{committee.name}}</option>
+            {% endfor%}
+        </select>
+
+        <datalist id="names">
+            
+            {% for member in members%}
+            <option value="{{member.first_name}} {{member.last_name}}"></option>
+            {%endfor%}
+        </datalist>   
         <div class="text-center text-light">
             <input type="submit" class="btn btn-primary btn-block mb-4" value="Sign up">
         </div> 
