@@ -9,7 +9,7 @@ from django import forms
 from .models import User
 from .models import Committee
 from django import forms
-from .models import User,Role,Urls,announcemnets
+from .models import User,Role,Urls,announcemnets,Tracker
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 from django.core import serializers
@@ -128,18 +128,40 @@ def committe_main(request):
         'committees':Committee.objects.all()
     })
 def create_form(request):
-    if request.method == "POST":
-        full_name = request.POST["fullName"]
-        id = request.POST["id"]
-        task = request.POST["task"]
-        attendance = request.POST["attendance"]
-        committeeId = request.POST["committeeId"]
-        
-    else:
-        return render(request,"Committee/HRForm.html" ,{ 
-                'members' : User.objects.all(),
-                'committees': Committee.objects.all()
+    if is_allowed(request,'HR_form'):
+        if request.method == "POST":
+            id = request.POST["id"]
+            task = request.POST["task"]
+            assigned_by_id =request.POST["assigned_by"]
+            attendance = request.POST.get('attendance', False)
+            # if request.POST["attendance"] is not None:
+            #     attendance =True
+            # else:
+            #     attendance = False
+            
+            try:
+                user = User.objects.get(id=id)
+                assigned_by = User.objects.get(id=assigned_by_id)
+            except ValueError:
+                return render(request, "Committee/HRForm.html", {
+                    "message": "Please select a Committee",
+                    'members' : User.objects.all()
+                })
+            tracker = Tracker(assigned_to= user, task=task,attendance=attendance,assigned_by=assigned_by)
+            tracker.save()
+            return render(request, "Committee/main.html",{
+            'committees':Committee.objects.all()
             })
+
+            
+            
+        else:
+            return render(request,"Committee/HRForm.html" ,{ 
+                    'members' : User.objects.all()
+                })
+    else:
+        return HttpResponse("<h2>Page requires admin previliges</h2>")
+
 
 def show_announcements(request):
     if request.method == 'GET':

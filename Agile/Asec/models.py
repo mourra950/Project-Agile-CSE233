@@ -29,4 +29,8 @@ class announcemnets(models.Model):
     def __str__(self):
         return f"{self.name}: {self.description}"
 class Tracker(models.Model):
-    pass
+    assigned_to = models.ForeignKey("User", on_delete=models.CASCADE,default='-1',related_name='assigned_to')
+    task = models.CharField(max_length=255,default='No task yet')
+    attendance = models.BooleanField(null=False,default=True)
+    assigned_by = models.ForeignKey("User", on_delete=models.CASCADE,default='-1',related_name='assigned_by')
+
