@@ -19,7 +19,7 @@ urlpatterns=[
     path('delete/<int:id>', views.delete, name='delete'),
     path('update/<int:id>', views.update, name='update'),
 
-    path("submit_form", views.Show_form, name="submit_form"), # Msh fahemha
+    path("tracker", views.tracker, name="tracker"), # Msh fahemha
     path("admin_view", views.admin, name="admin_view")
     
 

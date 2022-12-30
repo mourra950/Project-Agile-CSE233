@@ -24,10 +24,13 @@ class NewTaskForm(forms.Form):
 
     
 def is_allowed(request, urlName):
-    roleId = Role.objects.get(id= request.user.roleId.pk)
-    url = Urls.objects.get(name= urlName)  
+    if request.user.is_anonymous:
+        return False
+    else:
+        roleId = Role.objects.get(id= request.user.roleId.pk)
+        url = Urls.objects.get(name= urlName)  
 
-    return url.role_set.filter(pk=roleId.pk).exists()
+        return url.role_set.filter(pk=roleId.pk).exists()
 
 def login_view(request):
     if request.method == "POST":
@@ -163,6 +166,7 @@ def create_form(request):
         return HttpResponse("<h2>Page requires admin previliges</h2>")
 
 
+
 def show_announcements(request):
     if request.method == 'GET':
         return render(request, "Announcements/announcements.html")
@@ -170,11 +174,16 @@ def show_announcements(request):
 def about_us_view(request):
     if request.method == 'GET':
         return render(request, "General/about_us.html")
-tasks=[ ]
-def Show_form(request):
-    return render(request, "Committee/Show_submission.html", {
-        "tasks": tasks
-    })
+
+def tracker(request):
+    if is_allowed(request,'tracker'):
+
+        return render(request, "Committee/show_tracker.html", {
+            "trackers": Tracker.objects.all()
+        })
+    else:
+        return HttpResponse("<h2>Page requires admin previliges</h2>")
+    
 
 def index(request):
   members = User.objects.all().values()
@@ -185,6 +194,7 @@ def index(request):
   return HttpResponse(template.render(context,request))
 
 def add(request):
+    
     if request.method == 'POST':
         if is_allowed(request,'add'):
             username = request.POST["username"]
@@ -227,8 +237,9 @@ def add(request):
             return HttpResponseRedirect(reverse("announcements"))
         else:
             return HttpResponse("<h2>Page requires admin previliges</h2>")
+
     else:
-        if request.user.is_superuser:
+        if is_allowed(request,'add'):
             committees = Committee.objects.all()
 
             return render(request, "Admin/Add_member.html", {
@@ -237,6 +248,7 @@ def add(request):
             })
         else:
             return HttpResponse("<h2>Page requires admin previliges</h2>")
+
 
 
 
@@ -275,15 +287,12 @@ def update(request,id):
 
 
 def list_members(request):
-    
-    if not request.user.is_anonymous:
-        if is_allowed(request,'list'):
-            members = User.objects.all()
-            return render(request,"Admin/List_of_members.html",{"members": members})
-        else: 
-            return HttpResponse("<h2>Page requires admin previliges</h2>")
-    else:
+    if is_allowed(request,'list'):
+        members = User.objects.all()
+        return render(request,"Admin/List_of_members.html",{"members": members})
+    else: 
         return HttpResponse("<h2>Page requires admin previliges</h2>")
+
 
 def admin(request):
     return render(request,"Announcements/admin_page.html")

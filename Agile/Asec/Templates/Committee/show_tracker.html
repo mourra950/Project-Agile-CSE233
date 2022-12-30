@@ -1,0 +1,43 @@
+{% extends "General/layout.html" %}
+{% block content %}
+
+
+<h1 class="my-5 text-center">Tracker</h1>
+
+<table class="table mb-5">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Role</th>
+      <th scope="col">Committee</th>
+      <th scope="col">Task</th>
+      <th scope="col">Assigned by</th>
+      <th scope="col">Attendance</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for tracker in trackers%}
+      <tr>
+        <th scope="row">{{tracker.assigned_to.id}}</th>
+        <td>{{tracker.assigned_to.first_name}}</td>
+        <td>{{tracker.assigned_to.last_name}}</td>
+        <td>{{tracker.assigned_to.roleId.name}}</td>
+        <td>{{tracker.assigned_to.committeeId.name}}</td>
+        <td>{{tracker.task}}</td>
+        <td>{{tracker.assigned_by.first_name}} {{tracker.assigned_by.last_name}}</td>
+        {% if tracker.attendance %}
+          <td class="text_center"><i class="fas fa-check"></i></td>
+        {% else %} 
+        <td><i class="fas fa-times" width="20px"></i></td>
+        {% endif %}
+        
+
+      </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+
+{% endblock %}
