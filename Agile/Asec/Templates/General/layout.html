@@ -58,11 +58,25 @@
 						<li class="nav-item">
 							<a class="nav-link active fw-bold text-light" href="#contact-us">Contact us</a>
 						</li>
-						{% if user.is_superuser %}
+						{% if user.roleId.name == "hr" or user.roleId.name == "admin"%}
 						<li class="nav-item">
 							<a class="nav-link active fw-bold text-light" href="{% url 'list'%}">List of members</a>
 						</li>
 						{% endif %}
+
+						{% if user.is_anonymous%}
+							1
+						{%else%}
+							{% if user.roleId.name == "hr" or user.roleId.name == "admin"%}
+							<li class="nav-item">
+								<a class="nav-link active fw-bold text-light" href="{% url 'HR_form'%}">HR Form</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active fw-bold text-light" href="{% url 'tracker'%}">HR Submissions</a>
+							</li>
+							{% endif %}
+						{% endif %}
+						
 
 					</ul>
 					<div class="d-flex">

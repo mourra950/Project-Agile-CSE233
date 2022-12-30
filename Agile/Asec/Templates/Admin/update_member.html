@@ -28,6 +28,28 @@
             <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email" value="{{ member.email}}" required>
             <label for="email">Email address</label>
         </div>
+
+        <select class="form-select mb-3" aria-label="Default select example" name="committeeId" required>
+            <option >Select Committee</option>
+            {% for committee in committees%}
+                {% if committee.name == member.committeeId.name %}
+                    <option value="{{committee.id}}" selected>{{committee.name}}</option>
+                {% else%}
+                    <option value="{{committee.id}}">{{committee.name}}</option>
+                {% endif%}
+            {% endfor%}
+        </select>
+
+        <select class="form-select mb-3" aria-label="Default select example" name="roleId" required>
+            <option >Select Role</option>
+            {% for role in roles%}
+                {% if role.name == member.roleId.name %}
+                    <option value="{{role.id}}" selected>{{role.name}}</option>
+                {% else%}
+                    <option value="{{role.id}}">{{role.name}}</option>
+                {% endif%}
+            {% endfor%}
+        </select>
         
         <div class="text-center text-light">
             <input type="submit" class="btn btn-primary btn-block mb-4" value="Update Member">

@@ -10,7 +10,7 @@ urlpatterns=[
     path("HR_form", views.create_form, name="HR_form"),
     path("main", views.committe_main, name="main"),
     path("announcements", views.events, name="announcements"),
-    path("show_committee/<int:committeeId>", views.show_committee, name="HR_committee"),
+    path("show_committee/<int:committeeId>", views.show_committee, name="show_committee"),
     path("about_us", views.about_us_view, name="about_us"),
 
     
@@ -19,7 +19,7 @@ urlpatterns=[
     path('delete/<int:id>', views.delete, name='delete'),
     path('update/<int:id>', views.update, name='update'),
 
-    path("tracker", views.tracker, name="tracker"), # Msh fahemha
+    path("tracker", views.tracker, name="tracker"),
     path("admin_view", views.admin, name="admin_view")
     
 

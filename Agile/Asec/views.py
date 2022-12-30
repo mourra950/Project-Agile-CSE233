@@ -137,10 +137,6 @@ def create_form(request):
             task = request.POST["task"]
             assigned_by_id =request.POST["assigned_by"]
             attendance = request.POST.get('attendance', False)
-            # if request.POST["attendance"] is not None:
-            #     attendance =True
-            # else:
-            #     attendance = False
             
             try:
                 user = User.objects.get(id=id)
@@ -266,20 +262,28 @@ def update(request,id):
             member = User.objects.get(id=id)
             
             return render(request, "Admin/update_member.html", {
-                    "member": member
+                    "member": member,
+                    "roles":Role.objects.all(),
+                    "committees": Committee.objects.all()
                 })
         elif request.method == 'POST':
             first_name = request.POST['firstName']
             last_name = request.POST['lastName']
             username = request.POST['username']
             email = request.POST['email']
+            roleId = request.POST['roleId']
+            commiteeId = request.POST['committeeId']
             
+            role = Role.objects.get(id = roleId)
+            committee = Committee.objects.get(id = commiteeId)
             member = User.objects.get(id=id)
 
             member.first_name = first_name
             member.last_name = last_name
             member.username = username
             member.email = email
+            member.roleId = role
+            member.committeeId = committee
             member.save()
             return HttpResponseRedirect(reverse('announcements'))
     else:
