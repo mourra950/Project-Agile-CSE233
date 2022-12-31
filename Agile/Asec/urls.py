@@ -8,7 +8,7 @@ urlpatterns=[
     path("register", views.register, name="register"),
 
     path("HR_form", views.create_form, name="HR_form"),
-    path("main", views.committe_main, name="main"),
+    path("", views.committe_main, name="main"),
     path("announcements", views.events, name="announcements"),
     path("show_committee/<int:committeeId>", views.show_committee, name="show_committee"),
     path("about_us", views.about_us_view, name="about_us"),

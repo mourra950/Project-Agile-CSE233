@@ -26,6 +26,17 @@
         
         </div>
       {% endif %}
+      <!-- Handling if there are odd number of committees -->
+	  {% with i=announcements.count%}
+	  	
+		{% if forloop.counter0 == i|add:"-1"%}
+			{% if forloop.counter0|divisibleby:2 %} 
+				</div>
+			{% else%}
+			
+			{% endif %}
+		{% endif %}
+	  {% endwith %}
     {% endfor%}
 	
 </div>

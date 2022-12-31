@@ -2,27 +2,31 @@
 
 {% block content %}
 <div
-	class="container my-5 text-light"
+	class="container my-5"
 	style="background-color: rgb(172, 0, 0); border-radius: 20px"
 >
-   <h2>Admin</h2>
-   <form action="{% url 'announcements'%}" method="POST"class="text-light">
+   <h2 class="mb-4 text-center text-light">Make Announcement</h2>
+   <div class="text-dark">
+   <form action="{% url 'admin_view'%}" method="POST">
       {% csrf_token %}
-      {{form.as_div}}
-     <div class="form-group">
-      <label for="Announcement">Announcement</label>
-      <textarea id="ann" class="form-control" rows="10" name="Announcement"></textarea>
-      <div class="form-floating mb-3">
-         <input type="text" class="form-control" id="floatingInput" placeholder="link" name="Fblink">
-         <label for="floatingInput">Facebook link</label>
+      <div class="form-floating mb-3 text-dark">
+         <input type="text" class="form-control" id="name" placeholder="Title" name="name">
+         <label for="name">Title</label>
      </div>
+      <div class="form-floating mb-3">
+         
+         <textarea id="ann" class="form-control" rows="10" name="description" placeholder="Announcement"></textarea>
+         <label for="ann">Announcement</label>
+      </div>
+      <div class="form-floating mb-3">
+         <input type="url" class="form-control" id="link" placeholder="link" name="Fblink">
+         <label for="link">Facebook link</label>
      </div>
      <div class="text-center text-light">
         <input  type="submit" class="btn btn-primary btn-block mb-4 " value="Add announcement">
      </div>
-     <div >
-      <a href="{% url 'list' %}">Show all memebers</a>    
-     </div>
+     
    </form>
+</div>
 </div>
 {% endblock %}

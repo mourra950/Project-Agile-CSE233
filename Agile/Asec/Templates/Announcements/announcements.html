@@ -6,25 +6,38 @@
 	class="container my-5 text-light"
 	style="background-color: rgb(172, 0, 0); border-radius: 20px"
 >
-	<h1>Announcements</h1>
-	{% for announcement in annoucements %}
+	<h1 class="text-center">Announcements</h1>
+	{% for announcement in announcements %}
       {% if forloop.counter0|divisibleby:2 %} 
         <div class="row justify-content-around m-1 h-auto" >
             <div class="col-lg-5 border mt-2 p-4 text-light">
-              <h2>{{announcement.name}}
-			  </h2>
-			  <p>{{announcement.description}}</p>
-				<a href="{{announcement.facebookLink}}"></a>
+              	<h2 class="text-center">{{announcement.name}}</h2>
+				<h4>Description:</h4>
+			  	<p>{{announcement.description}}</p>
+				<a href="{{announcement.facebookLink}}">Facebook Link</a>
             </div>
+			
       {%else%}
 	  <div class="col-lg-5 border mt-2 p-4 text-light">
-		<h2>{{announcement.name}}
-		</h2>
+		<h2 class="text-center">{{announcement.name}}</h2>
+		<h4>Description:</h4>
 		<p>{{announcement.description}}</p>
-		  <a href="{{announcement.facebookLink}}"></a>
+		<a href="{{announcement.facebookLink}}">Facebook Link</a>
 	  </div>
 	</div>
       {% endif %}
+	  <!-- Handling if there are odd number of announcements -->
+	  {% with i=announcements.count%}
+	  	
+		{% if forloop.counter0 == i|add:"-1"%}
+			{% if forloop.counter0|divisibleby:2 %} 
+				</div>
+			{% else%}
+			
+			{% endif %}
+		{% endif %}
+	  {% endwith %}
+	  
     {% endfor%}
 		
 </div>

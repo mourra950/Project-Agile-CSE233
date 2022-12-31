@@ -75,6 +75,13 @@
 								<a class="nav-link active fw-bold text-light" href="{% url 'tracker'%}">HR Submissions</a>
 							</li>
 							{% endif %}
+							{% if user.roleId.name == "admin"%}
+							
+							<li class="nav-item">
+								<a class="nav-link active fw-bold text-light" href="{% url 'admin_view'%}">Make Announcement</a>
+							</li>
+							{% endif %}
+
 						{% endif %}
 						
 

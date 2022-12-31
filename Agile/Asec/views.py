@@ -32,26 +32,6 @@ def is_allowed(request, urlName):
 
         return url.role_set.filter(pk=roleId.pk).exists()
 
-def login_view(request):
-    if request.method == "POST":
-
-        # Attempt to sign user in
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-
-        # Check if authentication successful
-        if user is not None:
-
-            login(request, user)
-            return HttpResponseRedirect(reverse("index"))
-        else:
-            return render(request, "network/login.html", {
-                "message": "Invalid username and/or password."
-            })
-    else:
-        return render(request, "General/login.html")
-
 
 def logout_view(request):
     logout(request)
@@ -92,7 +72,9 @@ def register(request):
                 'committees': Committee.objects.all()
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("announcements"))
+        return HttpResponseRedirect(reverse("announcements"),{
+            "announcements":announcements
+        })
     else:
         return render(request, "Authentication/register.html",{
             'committees': Committee.objects.all()
@@ -119,13 +101,18 @@ def LoginView(request):
         if user is not None:
 
             login(request, user)
-            return HttpResponseRedirect(reverse("announcements"))
+            return HttpResponseRedirect(reverse("announcements"),{
+                "announcements":announcements.objects.all()
+            })
         else:
             return render(request, "Authentication/login.html", {
-                "message": "Invalid username and/or password."
+                "message": "Invalid username and/or password.",
+                "announcements":announcements.objects.all()
             })
     else:
-        return render(request, "Authentication/login.html")
+        return render(request, "Authentication/login.html",{
+            "announcements":announcements.objects.all()
+        })
 def committe_main(request):
     return render(request, "Committee/main.html",{
         'committees':Committee.objects.all()
@@ -294,17 +281,23 @@ def list_members(request):
 
 def admin(request):
     if request.method == 'POST' :
-        name=request.post['Announcement']
-        description=request.post['description']
-        link=request.post['Fblink']
+        name= request.POST['name']
+        description= request.POST['description']
+        link= request.POST['Fblink']
         ann = announcements(name=name,description=description,facebookLink=link)
         ann.save()
+        return HttpResponseRedirect(reverse('announcements'),{
+            'announcements':announcements.objects.all()
+        })
     else: 
-        return HttpResponse("<h2>Page requires admin previliges</h2>")
-    return render(request,"Announcements/admin_page.html")
+        return render(request,"Announcements/admin_page.html")
 def events(request):
     if request.method == 'GET':
-        announcements = announcements.objects.all()
-        return render(request,"Announcements/announcements.html",{"announcements": announcements})
-       
+        return render(request,"Announcements/announcements.html",{"announcements": announcements.objects.all()})
+
+
+        
+
+
+
     
