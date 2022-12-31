@@ -9,7 +9,7 @@ from django import forms
 from .models import User, announcements
 from .models import Committee
 from django import forms
-from .models import User,Role,Urls,announcemnets,Tracker
+from .models import User,Role,Urls,announcements,Tracker
 from django.template import loader
 from django.contrib.auth.forms import UserCreationForm
 from django.core import serializers
@@ -130,7 +130,7 @@ def committe_main(request):
     return render(request, "Committee/main.html",{
         'committees':Committee.objects.all()
     })
-    
+
 def create_form(request):
     if is_allowed(request,'HR_form'):
         if request.method == "POST":
