@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from django import forms
-from .models import User
+from .models import User, announcements
 from .models import Committee
 from django import forms
 from .models import User,Role,Urls,announcemnets,Tracker
@@ -299,12 +299,18 @@ def list_members(request):
 
 
 def admin(request):
+    if request.method == 'POST' :
+        name=request.post['Announcement']
+        description=request.post['description']
+        link=request.post['Fblink']
+        ann = announcements(name=name,description=description,facebookLink=link)
+        ann.save()
+    else: 
+        return HttpResponse("<h2>Page requires admin previliges</h2>")
     return render(request,"Announcements/admin_page.html")
 def events(request):
     if request.method == 'GET':
-        ann = announcemnets.objects.all()
-        return render(request,"Announcements/announcements.html",{"ann": ann})
-    else: 
-        return HttpResponse("<h2>Page requires admin previliges</h2>")
-    
+        announcements = announcements.objects.all()
+        return render(request,"Announcements/announcements.html",{"announcements": announcements})
+       
     

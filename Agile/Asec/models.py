@@ -23,9 +23,10 @@ class Committee(models.Model):
     headId = models.ForeignKey("User", on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.id}: {self.name}"
-class announcemnets(models.Model): 
+class announcements(models.Model): 
     name= models.CharField(max_length=50)
     description = models.CharField(max_length=255)
+    facebookLink=models.CharField(max_length=150)
     def __str__(self):
         return f"{self.name}: {self.description}"
 class Tracker(models.Model):

@@ -8,7 +8,7 @@
 >
 	<h1>Committees</h1>
     {% for committee in committees%}
-      {% if forloop.counter0|divisibleby:2 %}
+      {% if forloop.counter0|divisibleby:2 %} 
         <div class="row justify-content-around m-1 h-auto" >
           <a href="show_committee/{{committee.id}}" class="col-lg-5 border mt-2 p-4 text-light" style="text-decoration: none;">
             <div >

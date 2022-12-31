@@ -7,54 +7,25 @@
 	style="background-color: rgb(172, 0, 0); border-radius: 20px"
 >
 	<h1>Announcements</h1>
-	<div class="row justify-content-around" style="height: 800px">
-		<div class="col-lg-5 border mt-2">
-			<h2>Announcement Name</h2>
-			<h3>Details</h3>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto enim
-				est quam perferendis beatae maxime excepturi quia quas, ipsa impedit
-				debitis ut quos eius cumque aspernatur consequatur nulla, placeat id.
-			</p>
-			<h3>Facebook Link</h3>
-			<a href="">www.facebook.com</a>
-		</div>
-		<div class="col-lg-5 border mt-2">
-			<h2>Announcement Name</h2>
-			<h3>Details</h3>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto enim
-				est quam perferendis beatae maxime excepturi quia quas, ipsa impedit
-				debitis ut quos eius cumque aspernatur consequatur nulla, placeat id.
-			</p>
-			<h3>Facebook Link</h3>
-			<a href="">www.facebook.com</a>
-		</div>
+	{% for announcement in annoucements %}
+      {% if forloop.counter0|divisibleby:2 %} 
+        <div class="row justify-content-around m-1 h-auto" >
+            <div class="col-lg-5 border mt-2 p-4 text-light">
+              <h2>{{announcement.name}}
+			  </h2>
+			  <p>{{announcement.description}}</p>
+				<a href="{{announcement.facebookLink}}"></a>
+            </div>
+      {%else%}
+	  <div class="col-lg-5 border mt-2 p-4 text-light">
+		<h2>{{announcement.name}}
+		</h2>
+		<p>{{announcement.description}}</p>
+		  <a href="{{announcement.facebookLink}}"></a>
+	  </div>
 	</div>
-	<div class="row justify-content-around" style="height: 800px">
-		<div class="col-lg-5 border mt-2">
-			<h2>Announcement Name</h2>
-			<h3>Details</h3>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto enim
-				est quam perferendis beatae maxime excepturi quia quas, ipsa impedit
-				debitis ut quos eius cumque aspernatur consequatur nulla, placeat id.
-			</p>
-			<h3>Facebook Link</h3>
-			<a href="">www.facebook.com</a>
-		</div>
-		<div class="col-lg-5 border mt-2">
-			<h2>Announcement Name</h2>
-			<h3>Details</h3>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto enim
-				est quam perferendis beatae maxime excepturi quia quas, ipsa impedit
-				debitis ut quos eius cumque aspernatur consequatur nulla, placeat id.
-			</p>
-			<h3>Facebook Link</h3>
-			<a href="">www.facebook.com</a>
-		</div>
-	</div>
+      {% endif %}
+    {% endfor%}
+		
 </div>
-
 {% endblock %}
