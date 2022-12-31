@@ -130,36 +130,30 @@ def committe_main(request):
     return render(request, "Committee/main.html",{
         'committees':Committee.objects.all()
     })
+    
 def create_form(request):
     if is_allowed(request,'HR_form'):
         if request.method == "POST":
-            id = request.POST["id"]
+            id = request.user.id
             task = request.POST["task"]
-            assigned_by_id =request.POST["assigned_by"]
+            description =request.POST["description"]
             attendance = request.POST.get('attendance', False)
             
             try:
                 user = User.objects.get(id=id)
-                assigned_by = User.objects.get(id=assigned_by_id)
             except ValueError:
-                return render(request, "Committee/HRForm.html", {
-                    "message": "Please select a Committee",
-                    'members' : User.objects.all()
-                })
-            tracker = Tracker(assigned_to= user, task=task,attendance=attendance,assigned_by=assigned_by)
+                return render(request, "Committee/HRForm.html")
+            tracker = Tracker(user= user, task=task,attendance=attendance,description=description)
             tracker.save()
-            return render(request, "Committee/main.html",{
-            'committees':Committee.objects.all()
-            })
+            return HttpResponseRedirect(reverse("HR_form"))
 
             
             
         else:
-            return render(request,"Committee/HRForm.html" ,{ 
-                    'members' : User.objects.all()
-                })
+            return render(request,"Committee/HRForm.html")
     else:
         return HttpResponse("<h2>Page requires admin previliges</h2>")
+
 
 
 

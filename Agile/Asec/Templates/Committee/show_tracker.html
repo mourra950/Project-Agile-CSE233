@@ -13,20 +13,20 @@
       <th scope="col">Role</th>
       <th scope="col">Committee</th>
       <th scope="col">Task</th>
-      <th scope="col">Assigned by</th>
+      <th scope="col">Description</th>
       <th scope="col">Attendance</th>
     </tr>
   </thead>
   <tbody>
     {% for tracker in trackers%}
       <tr>
-        <th scope="row">{{tracker.assigned_to.id}}</th>
-        <td>{{tracker.assigned_to.first_name}}</td>
-        <td>{{tracker.assigned_to.last_name}}</td>
-        <td>{{tracker.assigned_to.roleId.name}}</td>
-        <td>{{tracker.assigned_to.committeeId.name}}</td>
+        <th scope="row">{{tracker.user.id}}</th>
+        <td>{{tracker.user.first_name}}</td>
+        <td>{{tracker.user.last_name}}</td>
+        <td>{{tracker.user.roleId.name}}</td>
+        <td>{{tracker.user.committeeId.name}}</td>
         <td>{{tracker.task}}</td>
-        <td>{{tracker.assigned_by.first_name}} {{tracker.assigned_by.last_name}}</td>
+        <td>{{tracker.description}}</td>
         {% if tracker.attendance %}
           <td class="text_center"><i class="fas fa-check"></i></td>
         {% else %} 

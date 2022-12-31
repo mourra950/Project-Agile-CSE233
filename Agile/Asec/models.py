@@ -23,15 +23,14 @@ class Committee(models.Model):
     headId = models.ForeignKey("User", on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.id}: {self.name}"
-class announcements(models.Model): 
+class announcemnets(models.Model): 
     name= models.CharField(max_length=50)
     description = models.CharField(max_length=255)
     facebookLink=models.CharField(max_length=150)
     def __str__(self):
         return f"{self.name}: {self.description}"
 class Tracker(models.Model):
-    assigned_to = models.ForeignKey("User", on_delete=models.CASCADE,default='-1',related_name='assigned_to')
+    user = models.ForeignKey("User", on_delete=models.CASCADE,default='-1',related_name='attendance')
     task = models.CharField(max_length=255,default='No task yet')
     attendance = models.BooleanField(null=False,default=True)
-    assigned_by = models.ForeignKey("User", on_delete=models.CASCADE,default='-1',related_name='assigned_by')
-
+    description = models.CharField(max_length=255,default='Without description')

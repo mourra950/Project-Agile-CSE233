@@ -10,12 +10,6 @@
     <h2 class="mb-4 text-center text-light">Attendance</h2>
     <form action="{% url 'HR_form' %}" method="POST">
         {% csrf_token %}
-        
-        <div class="form-floating mb-3">
-            
-            <input type="text" name="id" class="form-control" placeholder="Member ID" list="ids" required id="id_Id">
-            <label for="id_Id">Member ID</label>
-        </div>
 
         <input type="hidden" name="assigned_by" value="{{user.pk}}">
 
@@ -26,13 +20,13 @@
             <label for="id_task">Assigned Task </label>
         </div>
 
-
-        <datalist id="ids">
+        <div class="form-floating mb-3">
             
-            {% for member in members%}
-            <option value="{{member.pk}}"></option>
-            {%endfor%}
-        </datalist>   
+            <textarea type="text" name="description" class="form-control" placeholder="Description" required id="id_description"></textarea>
+            <label for="id_description">Description </label>
+        </div>
+
+
         <div class="form-check mb-3 text-light">
             <label class="form-check-label" for="id_Attendance">
                 Attendence
