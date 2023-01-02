@@ -10,7 +10,7 @@ we used adobe XD and DrawIO in order to draw the first Prototype of the website 
 during this project we were introduced to new softwares like trello and jira which coordinated the tasks between our team members and divide our to work to sprints of tasks.
 ## Webdev 
 before starting we started looking for the best backend that can suit our needs and easy to use and in this case it was Django aside being written in python with good documentation it made it easier to make any changes on the long run with the least effort needded either changes in the DB or in the webpages.
-
+ $ python manage.py runserver
 # Dependencies
 
 To run you can run pip3 install Django in your terminal to install Django
