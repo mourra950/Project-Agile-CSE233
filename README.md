@@ -10,11 +10,25 @@ we used adobe XD and DrawIO in order to draw the first Prototype of the website 
 during this project we were introduced to new softwares like trello and jira which coordinated the tasks between our team members and divide our to work to sprints of tasks.
 ## Webdev 
 before starting we started looking for the best backend that can suit our needs and easy to use and in this case it was Django aside being written in python with good documentation it made it easier to make any changes on the long run with the least effort needded either changes in the DB or in the webpages.
- $ python manage.py runserver
+## DB
+we used the django DB in managing our DB and choosed SQLite as the output to be able to access it easily and being able to share it between us without the need to configure the enviroment 
 # Dependencies
+The only thing needed to run the project is python and the Django library.
+To install it you can use the following command in the terminal. 
+```sh
+pip install django
+```
+# Usage
+To run the website as a local server run 
+```sh
+cd Agile_Project
+``` 
+then excute
+```sh
+python manage.py runserver
+```
+then press on the url that will be provided by django to access the development server.
+# Note
+In case you want to login as an admin input in the username textarea 'admin', and in the password 'admin'.
 
-To run you can run pip3 install Django in your terminal to install Django
-Run cd Agile to navigate into our project’s directory.
-Start the project by running python manage.py runserver ->this will open a development server, which you can access by visiting the URL provided
-If you want to login as an admin make username admin, password admin
 you can see database scheme from db file can be opened by sqlite app or you can make yourself super user by running in terminal python manage.py createsuperuser and type in the url during running site /admin
