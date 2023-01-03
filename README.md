@@ -1,5 +1,8 @@
-# ASEC MIU student activity website
+# ASCC MIU student activity website
 This is a university project of the Agile CSE233 course with supervision of Dr Salwa. 
+
+![logo](https://user-images.githubusercontent.com/64339763/210307750-6f9f4a8a-3f4f-446b-bbe3-26dce7cd4876.jpg)
+
 # Project Description
 our objectives in this project was to find a charity or a non profitable organization to provide them with a working software that will contribute in helping their cause.
 while working we were required to work in an Agile mindset and started using new tools to reach higher level of teamwork and effeciency
@@ -8,7 +11,8 @@ while working we were required to work in an Agile mindset and started using new
 we used adobe XD and DrawIO in order to draw the first Prototype of the website to show it to the client during our weekly meeting and listened to their comments to draw a better one.
 ## Agile softwares
 during this project we were introduced to new softwares like trello and jira which coordinated the tasks between our team members and divide our to work to sprints of tasks.
-## Webdev 
+## Webdev
+
 before starting we started looking for the best backend that can suit our needs and easy to use and in this case it was Django aside being written in python with good documentation it made it easier to make any changes on the long run with the least effort needded either changes in the DB or in the webpages.
 ## DB
 we used the django DB in managing our DB and choosed SQLite as the output to be able to access it easily and being able to share it between us without the need to configure the enviroment
