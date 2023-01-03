@@ -3,7 +3,8 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class User(AbstractUser):
     committeeId = models.ForeignKey("Committee", default=1,on_delete=models.CASCADE)
-    roleId = models.ForeignKey("Role",default=1, on_delete=models.CASCADE)
+    roleId = models.ForeignKey("Role", default=1,on_delete=models.CASCADE)
+
 
 
 class Role(models.Model):
