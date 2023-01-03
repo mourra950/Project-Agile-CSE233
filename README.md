@@ -40,5 +40,5 @@ and type in the url during running site
 ```ssh
 www.siteurl/admin
 ```
-admin to be able to access registered 
-modeled and directly change and see data.
+to be able to access registered 
+modeles and directly change and see data.
