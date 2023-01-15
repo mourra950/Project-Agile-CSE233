@@ -15,13 +15,20 @@ while working we were required to work and practice using the Agile mindset and 
 
 we used adobe XD and DrawIO in order to draw the first Prototype of the website to show it to the client during our weekly meeting and listened to their comments to draw a better one.
 
+![image](https://user-images.githubusercontent.com/64339763/212529427-9555aa9a-0cdd-4153-b24f-ccd0580c9ec8.png)
+
+
 ## Agile softwares
 
 during this project we were introduced to new softwares like trello and jira which coordinated the tasks between our team members and divide our to work to sprints of tasks.
 
+![image](https://user-images.githubusercontent.com/64339763/212529517-23a2a4d3-7e6e-4eed-bcba-9edea1b68fdb.png)
+
+
 ## Webdev
 
 before starting we started looking for the best backend that can suit our needs and easy to use and in this case it was Django aside being written in python with good documentation it made it easier to make any changes on the long run with the least effort needded either changes in the DB or in the webpages.
+for django documentation : <a href="https://www.djangoproject.com/"> Django documentation</a>
 
 ## DB
 
@@ -33,7 +40,7 @@ but in case the client wished to change it to anything else it will be as easy a
 The only thing needed to run the project is python and the Django library.
 To install it you can use the following command in the terminal.
 
-```sh
+```ssh
 pip install django
 ```
 
@@ -41,18 +48,24 @@ pip install django
 
 To run the website as a local server run
 
-```sh
+```ssh
 cd Agile_Project
 ```
 
 then excute
 
-```sh
+```ssh
 python manage.py runserver
 ```
 
 then press on the url that will be provided by django to access the development server.
-
+it will be something similar to :
+```ssh
+January 03, 2023 - 09:35:50
+Django version 4.1.3, using settings 'Agile.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+```
 # Note
 
 In case you want to login as an admin input in the username textarea 'admin', and in the password 'admin'.
