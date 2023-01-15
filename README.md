@@ -2,10 +2,12 @@
 
 This is a university project of the Agile CSE233 course with supervision of Dr Salwa.
 
+![image](https://user-images.githubusercontent.com/64339763/212529256-cc91cba2-5e2c-43bc-a262-69f6f22fb85f.png)
+
 # Project Description
 
 our objectives in this project was to find a charity or a non profitable organization to provide them with a working software that will contribute in helping their cause.
-while working we were required to work in an Agile mindset and started using new tools to reach higher level of teamwork and effeciency
+while working we were required to work and practice using the Agile mindset and started using new tools to reach higher level of teamwork and effeciency.
 
 # Tools used
 
